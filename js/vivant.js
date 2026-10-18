@@ -386,5 +386,5 @@ window.VIVANT.aRetravailler = [
   { pour: "equipe", tp: "TP 2", titre: "Question 20 (AutoCalSol)", texte: "Ce sont des étapes de menus du logiciel : à reformuler après l'avoir ouvert et testé.", lien: "#q-2-2-20" },
   { pour: "equipe", tp: "TP 1", titre: "Photos des pièces du plan interactif", texte: "Les 7 photos du plan de l'installation (panneaux, câbles PV, batterie, onduleur, régulateur, protection batterie, coffret DC) viennent du web. Elles sont retirées du site en ligne et restent sur la version de travail. La photo du coffret DC est provisoire (c'est un coffret AC). À remplacer par des photos libres ou prises par l'équipe." },
   { pour: "equipe", tp: "Général", titre: "Droits des dessins de Tintin", texte: "Demande en cours auprès de Moulinsart. Les dessins restent pour la démo ; si la réponse est non, on les retire du site en ligne." },
-  { pour: "equipe", tp: "Général", titre: "Planches BD et bulles", texte: "Planche des Dupondt du TP 4 : faite (version 1, à valider). Reste : planches des TP 2 et 3, bulles de Tournesol dans les TP 2 à 4." }
+  { pour: "equipe", tp: "Général", titre: "Planches BD et bulles", texte: "Bulles de Tournesol dans les TP 2 à 4. La planche BD des Dupondt est abandonnée." }
 ];

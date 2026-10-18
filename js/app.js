@@ -366,7 +366,6 @@
       h += '<section class="case"><h2><span class="etiquette">Séance ' + s.num + "</span>" + esc(s.titre) + "</h2><p>4 heures · " + s.sections.length + ' parties</p><div><a class="btn" href="#seance-' + sid + '">Ouvrir la séance ' + s.num + "</a></div></section>";
     });
     if (n === 1) h += '<figure class="planche"><img src="images/bd-tintin-tel.jpg" alt="Tintin se demande combien de panneaux il lui faudra" style="max-width:520px"></figure>';
-    if (n === 4) h += '<figure class="planche"><img src="images/bd-dupondt-tp4.jpg" alt="Planche de BD : les Dupondt inaugurent une installation pleine de défauts ; la lumière ne s\'allume pas et Tournesol arrive avec son multimètre" data-zoom style="max-width:640px"></figure>';
     return h + pied();
   }
   // Tableau des abréviations utilisées dans la séance (tirées de VIVANT.lexique)
@@ -411,8 +410,6 @@
   function pageSeance(s) {
     var h = (modeCorrige ? '<p class="bandeau-corrige">Version corrigée : réservée aux enseignants</p>' : "") + '<span class="bandeau">' + (s.tp === "terre" ? "Mise à la terre · Activité " + s.num + " · " + esc(s.code) : "TP " + s.tp + " · Séance " + s.num) + '</span><h1 class="titre-page">' + esc(s.titre) + "</h1>";
     h += tableauAbreviations(s);
-    // Planche BD des Dupondt en ouverture du TP 4
-    if (s.id === "4-1" && !modeCorrige) h += '<figure class="planche"><img src="images/bd-dupondt-tp4.jpg" alt="Planche de BD : les Dupondt inaugurent une installation pleine de défauts ; la lumière ne s\'allume pas et Tournesol arrive avec son multimètre" data-zoom style="max-width:640px"></figure>';
     // Fiche technique accessible dès le début des exercices (elle reste aussi en fin de séance)
     var fiche = s.sections.filter(function (x) { return x.kind === "ressource" && /Fiche technique/.test(x.titre); })[0];
     if (fiche) h += '<details class="fiche-rapide"><summary>📄 Fiche technique de référence : à garder sous les yeux pendant les exercices</summary><div>' + rendreBlocs(fiche.blocks, fiche, s) + "</div></details>";
