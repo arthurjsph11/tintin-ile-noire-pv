@@ -280,7 +280,7 @@
       if (b.t === "q") {
         // Le simulateur de CPI est placé AVANT la question qui l'utilise
         if (b.id === "q-T3-V3") h += '<p class="sim-avant">Utilisez ce simulateur de contrôleur permanent d\'isolement pour répondre à la question suivante.</p><div data-composant="cpi"></div>';
-        h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + segs(b.s) +
+        h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + enonceAere(b) +
           (b.indice ? '<div class="indice"><button type="button" data-indice="Indice" aria-expanded="false">Indice</button><div class="reponse-indice" hidden>' + esc(b.indice) + "</div></div>" : "") +
           (b.aide ? '<div class="indice"><button type="button" data-indice="Aide" aria-expanded="false">Aide</button><div class="reponse-indice" hidden>' + esc(b.aide) + "</div></div>" : "") +
           (b.feuille ? '<div class="feuille"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12l8-8 2 2-8 8H2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Je réponds sur ma feuille</div>' : "") + "</div></div>";
@@ -353,7 +353,7 @@
     // Visible seulement en mode prof : la liste des points à retravailler
     if (profOuvert()) {
       var nb = (window.VIVANT.aRetravailler || []).length;
-      h += '<a class="carte a-retravailler" href="#a-retravailler"><span class="tp-num">Pour l\'équipe</span><b>À retravailler</b><span>' + nb + " point" + (nb > 1 ? "s" : "") + " ouverts, dont les questions pour les profs</span></a>";
+      h += '<a class="carte a-retravailler" href="#a-retravailler"><span class="tp-num">Pour l\'équipe</span><b>À retravailler</b><span>' + nb + " point" + (nb > 1 ? "s" : "") + " ouverts : questions pour les profs, idées et tâches de l'équipe</span></a>";
     }
     h += "</div>";
     return h + pied();
@@ -421,6 +421,12 @@
     h += '<nav class="suite">' + (i > 0 ? '<a class="btn leger" href="#seance-' + ids[i - 1] + '">← ' + nom(seances[ids[i - 1]]) + "</a>" : "<span></span>") +
       (i < ids.length - 1 ? '<a class="btn" href="#seance-' + ids[i + 1] + '">' + nom(seances[ids[i + 1]]) + " →</a>" : "") + "</nav>";
     return h + pied();
+  }
+  // Énoncés longs : une phrase par ligne, pour ne pas laisser de gros pavés
+  function enonceAere(b) {
+    if (b.s.length !== 1 || b.s[0][1] || b.s[0][2] || texte(b.s).length <= 200) return segs(b.s);
+    var ph = texte(b.s).split(/(?<=[.!?»])\s+(?=[A-ZÉÈÀÂ«])/);
+    return ph.length < 3 ? segs(b.s) : ph.map(function (x) { return '<span class="ligne-aeree">' + esc(x) + "</span>"; }).join("");
   }
   function correction(s, num) {
     var c = (window.CORRIGES || {})[s.id + "|" + num];
@@ -509,20 +515,25 @@
   // À retravailler : points ouverts (données dans VIVANT.aRetravailler)
   function pageARetravailler() {
     var l = window.VIVANT.aRetravailler || [];
-    var STATUTS = { profs: "Question pour les profs", equipe: "À faire par l'équipe" };
+    var POUR = [["benin", "Questions pour les profs du Bénin"], ["paris", "Questions pour Monsieur Paris"], ["idee", "Mes idées à présenter"], ["equipe", "À faire par l'équipe"]];
     var h = '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">À retravailler</h1>' +
-      bulle("Tout ce qu'on ne sait pas encore, ou qu'il faut revoir, rangé par TP. Les questions marquées « profs » sont à poser pendant la visite.") +
-      '<div class="ar-liste">';
-    var groupes = [];
-    l.forEach(function (it) { if (groupes.indexOf(it.tp) < 0) groupes.push(it.tp); });
-    groupes.forEach(function (g) {
-      h += '<section class="case ar-groupe"><h2>' + esc(g) + '</h2><ul class="tirets">';
-      l.filter(function (it) { return it.tp === g; }).forEach(function (it) {
-        h += '<li class="ar-' + it.statut + '"><span class="ar-statut">' + STATUTS[it.statut] + "</span> <b>" + esc(it.titre) + "</b> : " + esc(it.texte) +
-          (it.options ? '<ul class="tirets">' + it.options.map(function (o) { return "<li>" + esc(o) + "</li>"; }).join("") + "</ul>" : "") +
-          (it.lien ? ' <a href="' + it.lien + '">Voir sur le site</a>' : "") + "</li>";
+      bulle("Tout ce qu'on ne sait pas encore, ou qu'il faut revoir, rangé par destinataire puis par TP.") + '<div class="ar-liste">';
+    POUR.forEach(function (p) {
+      var items = l.filter(function (it) { return it.pour === p[0]; });
+      if (!items.length) return;
+      h += '<section class="case ar-groupe ar-' + p[0] + '"><h2>' + esc(p[1]) + " (" + items.length + ")</h2>";
+      var tps = [];
+      items.forEach(function (it) { if (tps.indexOf(it.tp) < 0) tps.push(it.tp); });
+      tps.forEach(function (g) {
+        h += "<h3>" + esc(g) + '</h3><ul class="tirets">';
+        items.filter(function (it) { return it.tp === g; }).forEach(function (it) {
+          h += "<li><b>" + esc(it.titre) + "</b> : " + esc(it.texte) +
+            (it.options ? '<ul class="tirets">' + it.options.map(function (o) { return "<li>" + esc(o) + "</li>"; }).join("") + "</ul>" : "") +
+            (it.lien ? ' <a href="' + it.lien + '">Voir sur le site</a>' : "") + "</li>";
+        });
+        h += "</ul>";
       });
-      h += "</ul></section>";
+      h += "</section>";
     });
     return h + "</div>" + pied();
   }
