@@ -1,0 +1,483 @@
+/* Tintin sur l'île Noire PV — feuille de style
+   Mise en page : menu fixe à gauche (TP → parties → questions), contenu en cases de BD à droite.
+   Univers « ligne claire » : encre noire, papier crème, bandeaux jaunes, bleu Tintin. Un seul thème clair assumé. */
+:root{
+  --encre:#1b1a17;
+  --papier:#fbf6e9;
+  --papier-2:#f3ead3;
+  --blanc:#ffffff;
+  --jaune:#f4c430;
+  --bleu:#1f5f99;
+  --bleu-clair:#dcebf7;
+  --vert-prof:#2e7d32;
+  --violet:#6b3fa0;
+  --violet-clair:#efe7f8;
+  --rouge:#c0392b;
+  --gris:#6b665c;
+  --gris-clair:#d8d0bd;
+  --titre:"Arial Black","Helvetica Neue",Arial,system-ui,sans-serif;
+  --texte:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --menu:340px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--papier);color:var(--encre);font-family:var(--texte);font-size:16.5px;line-height:1.65}
+img{max-width:100%}
+a{color:var(--bleu)}
+button{font:inherit;color:var(--encre)}
+input,select,textarea{color:var(--encre)}
+:focus-visible{outline:3px solid var(--bleu);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* ---------- Structure ---------- */
+.app{display:grid;grid-template-columns:var(--menu) 1fr;min-height:100%}
+.menu{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--papier-2);border-right:3px solid var(--encre);padding:24px 18px 40px}
+.contenu{min-width:0;padding-inline:clamp(16px,4vw,48px);padding-block:24px 64px}
+.contenu-int{max-width:900px;margin:0 auto;display:grid;gap:36px}
+.btn.bouton-menu{display:none}
+
+/* ---------- Menu ---------- */
+.marque{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--encre);margin:0 4px 24px}
+.marque img{width:46px;height:46px;border-radius:50%;border:3px solid var(--encre);object-fit:cover}
+.marque b{font-family:var(--titre);font-size:15px;line-height:1.1;text-transform:uppercase;letter-spacing:.02em}
+.marque small{display:block;font-family:var(--texte);font-weight:700;color:var(--bleu);text-transform:none;letter-spacing:0}
+.nav{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.nav ul{list-style:none;margin:0;padding:0}
+.nav-lien{display:flex;align-items:center;gap:6px;width:100%;text-align:left;background:none;border:0;color:var(--encre);text-decoration:none;padding:9px 10px;border-radius:4px;cursor:pointer;font-size:14.5px;line-height:1.4}
+.nav-lien:hover{background:var(--blanc)}
+.nav-lien.actif{background:var(--jaune);font-weight:700}
+.onglet{border:2px solid var(--encre);background:var(--blanc);border-radius:4px}
+.onglet>.ligne{display:flex;align-items:stretch}
+.onglet>.ligne>.nav-lien{font-weight:800;padding:12px 10px}
+.fleche{flex:none;width:34px;border:0;background:none;cursor:pointer;display:grid;place-items:center;color:var(--encre)}
+.fleche svg{width:14px;height:14px;transition:transform .15s}
+.fleche[aria-expanded="true"] svg{transform:rotate(90deg)}
+.fleche.petite{width:26px;color:#9a9284}
+.fleche.petite svg{width:11px;height:11px}
+.sous{padding:8px 6px 10px 10px;border-top:1px dashed var(--gris-clair);display:grid;gap:3px}
+.sous .ligne{display:flex;align-items:center}
+.sous .nav-lien{font-size:14px;gap:9px}
+.num-seance{flex:none;font-family:var(--mono);font-size:11px;background:var(--bleu);color:#fff;padding:1px 5px;border-radius:3px}
+.questions-menu{padding:2px 0 8px 34px;display:grid;gap:2px}
+.questions-menu .nav-lien{font-size:13px;color:#4a463e;padding:5px 8px;gap:8px}
+.questions-menu .qn{font-family:var(--mono);font-weight:700;color:var(--bleu);flex:none}
+.nav-sep{height:14px}
+.nav-simple{border:2px solid var(--encre);border-radius:4px;background:var(--blanc);font-weight:800}
+
+/* ---------- Bandeaux et titres ---------- */
+.bandeau{justify-self:start;display:inline-block;background:var(--jaune);border:3px solid var(--encre);padding:4px 14px;font-family:var(--titre);text-transform:uppercase;font-size:clamp(17px,2.2vw,22px);letter-spacing:.02em;line-height:1.2}
+h1.titre-page{font-family:var(--titre);font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0;text-wrap:balance}
+.chapeau{font-size:18px;max-width:65ch;margin:0}
+.case{background:var(--blanc);border:3px solid var(--encre);padding:28px 30px;display:grid;gap:20px;min-width:0;scroll-margin-top:16px}
+.case>h2{margin:0;font-family:var(--titre);font-size:20px;line-height:1.2;text-wrap:balance;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.case h3{margin:14px 0 0;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--bleu)}
+.case p{margin:0;max-width:72ch}
+.etiquette{font-family:var(--mono);font-size:12px;font-weight:700;background:var(--encre);color:#fff;padding:2px 7px;border-radius:3px;letter-spacing:.03em}
+.case.complement{border-color:var(--violet);background:var(--violet-clair)}
+.case.complement>h2 .etiquette{background:var(--violet)}
+.case.ressource{background:var(--papier-2)}
+.case.bilan{background:var(--papier-2)}
+.case.questionnaire{border-style:double;border-width:6px}
+.v{color:var(--violet)}
+.g{color:var(--vert-prof)}
+
+/* ---------- Questions ---------- */
+.question{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:16px 18px;border:2px solid var(--gris-clair);border-left:6px solid var(--bleu);background:var(--blanc);scroll-margin-top:16px;border-radius:2px}
+.question.violette{border-left-color:var(--violet)}
+.question.surligne{animation:surligne 1.6s ease}
+@keyframes surligne{0%{background:#fff3b8}100%{background:var(--blanc)}}
+.question .numero{font-family:var(--titre);font-size:18px;min-width:42px;text-align:center;background:var(--bleu);color:#fff;border-radius:3px;padding:2px 6px;line-height:1.3}
+.question.violette .numero{background:var(--violet)}
+.question .enonce{min-width:0}
+.feuille{display:flex;align-items:center;gap:5px;margin-top:6px;font-size:12.5px;color:var(--gris);font-weight:700}
+.feuille svg{width:14px;height:14px}
+
+/* ---------- Tableaux ---------- */
+.tableau{overflow-x:auto}
+table{border-collapse:collapse;background:var(--blanc);font-variant-numeric:tabular-nums;min-width:100%}
+th,td{border:2px solid var(--encre);padding:9px 12px;text-align:left;vertical-align:top;font-size:15px}
+tr:first-child td,th{background:var(--jaune);font-weight:800}
+td p{margin:0}
+td.vide{background:repeating-linear-gradient(-45deg,#fff,#fff 6px,#f6f1e4 6px,#f6f1e4 12px)}
+
+/* ---------- Bulles de Tournesol ---------- */
+.bulle-l{display:flex;gap:14px;align-items:flex-start}
+.bulle-l .portrait{flex:none;width:72px;height:72px;border-radius:50%;border:3px solid var(--encre);object-fit:cover;object-position:50% 30%;background:#e9d8b4}
+.bulle-l.petite .portrait{width:52px;height:52px}
+.bulle{position:relative;min-width:0;background:var(--blanc);border:3px solid var(--encre);border-radius:18px;padding:10px 16px;line-height:1.45}
+.bulle::before{content:"";position:absolute;left:-16px;top:20px;border:8px solid transparent;border-right-color:var(--encre)}
+.bulle .qui{display:block;font-family:var(--titre);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--bleu);margin-bottom:2px}
+.bulle-l.petite .bulle{font-size:15px;padding:8px 14px}
+.bulle-l.info .bulle{background:#fff9df}
+.bulle-l.tintin{flex-direction:row-reverse;margin-left:48px}
+.bulle-l.tintin .bulle{background:var(--bleu-clair)}
+.bulle-l.tintin .bulle::before{left:auto;right:-16px;border-right-color:transparent;border-left-color:var(--encre)}
+.bulle-l .portrait.pastille{display:grid;place-items:center;background:#e9864a;color:var(--blanc);font-family:var(--titre);font-size:22px}
+
+/* ---------- BD ---------- */
+.planche{margin:0;display:grid;gap:8px}
+.planche img{display:block;width:100%;border:3px solid var(--encre);cursor:zoom-in;background:#fff}
+.planche figcaption{font-size:13px;color:var(--gris)}
+.zoom{position:fixed;inset:0;background:rgba(20,18,15,.88);display:grid;place-items:center;padding:16px;z-index:50;cursor:zoom-out}
+.zoom img{max-height:94vh;width:auto;border:3px solid #fff}
+figure.schema{margin:0}
+figure.schema img{display:block;background:#fff;border:2px solid var(--gris-clair);padding:6px}
+
+/* ---------- Accueil ---------- */
+.accueil-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:center}
+.accueil-hero img{width:100%;border:3px solid var(--encre)}
+.cartes{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.carte{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--encre);background:var(--blanc);border:3px solid var(--encre);padding:14px 16px;transition:transform .12s}
+.carte:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--encre)}
+.carte .tp-num{font-family:var(--titre);font-size:13px;text-transform:uppercase;color:var(--bleu);letter-spacing:.05em}
+.carte b{font-size:18px;line-height:1.25}
+.carte span{font-size:14px;color:var(--gris)}
+.carte.bientot{background:var(--papier-2);border-style:dashed}
+.carte.jeux{background:var(--jaune)}
+
+/* ---------- Navigation bas de page ---------- */
+.suite{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--bleu);color:#fff;border:3px solid var(--encre);padding:8px 14px;font-weight:800;text-decoration:none;cursor:pointer;line-height:1.2}
+.btn:hover{transform:translateY(-1px)}
+.btn.leger{background:var(--blanc);color:var(--encre)}
+.btn.jaune{background:var(--jaune);color:var(--encre)}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+
+/* ---------- Plan interactif ---------- */
+.plan-zones{display:flex;gap:8px;flex-wrap:wrap}
+.plan-zones button{background:var(--blanc);border:2px solid var(--encre);padding:5px 12px;font-weight:700;cursor:pointer;border-radius:999px;font-size:14px}
+.plan-zones button[aria-pressed="true"]{background:var(--encre);color:#fff}
+.plan-scene{border:3px solid var(--encre);background:#cfe7f5;overflow:hidden}
+.plan-scene svg{display:block;width:100%;height:auto}
+.piece{cursor:pointer}
+.piece .halo{fill:none;stroke:var(--jaune);stroke-width:0;transition:stroke-width .15s}
+.piece:hover .halo,.piece:focus .halo,.piece.choisie .halo{stroke-width:8}
+.piece.attenue{opacity:.28}
+.piece:focus{outline:none}
+.piece .pastille{fill:var(--jaune);stroke:var(--encre);stroke-width:2.5}
+.piece.vue .pastille{fill:#8fd18a}
+.piece .pastille-t{fill:var(--encre);pointer-events:none}
+.plan-grille{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:16px;align-items:start}
+.fiche{background:var(--blanc);border:3px solid var(--encre);padding:14px 16px;display:grid;gap:8px;position:sticky;top:12px}
+.fiche h4{margin:0;font-family:var(--titre);font-size:18px}
+.fiche .zone-nom{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--bleu)}
+.fiche dl{margin:0;display:grid;gap:6px}
+.fiche dt{font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--gris)}
+.fiche dd{margin:0}
+.fiche .photo{border:2px dashed var(--gris-clair);background:var(--papier);min-height:90px;display:grid;place-items:center;text-align:center;font-size:12px;color:var(--gris);padding:6px}
+.fiche .photo img{display:block;width:100%;border:0}
+.compteur{font-size:14px;font-weight:700}
+.compteur b{font-family:var(--mono)}
+
+/* ---------- Quiz, ordre ---------- */
+.quiz{display:grid;gap:12px}
+.quiz-q{font-weight:800;font-size:17px}
+.choix{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.choix button{text-align:left;background:var(--blanc);border:2px solid var(--encre);padding:8px 12px;cursor:pointer;font-weight:600}
+.choix button:hover{background:var(--bleu-clair)}
+.choix button.bon{background:#d6f0d4;border-color:#2e7d32}
+.choix button.faux{background:#f8d7d3;border-color:var(--rouge)}
+.progression{height:10px;background:var(--papier-2);border:2px solid var(--encre)}
+.progression i{display:block;height:100%;background:var(--jaune);transition:width .2s}
+.ordre{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ordre li{display:flex;align-items:center;gap:10px;background:var(--blanc);border:2px solid var(--encre);padding:8px 10px;cursor:grab;user-select:none}
+.ordre li.glisse{opacity:.5}
+.ordre li .poignee{font-family:var(--mono);color:var(--gris)}
+.ordre li .etiq{flex:1;font-weight:700}
+.ordre li .courant{font-size:12px;font-weight:800;padding:2px 6px;border-radius:3px}
+.ordre li .monte,.ordre li .descend{border:2px solid var(--encre);background:var(--jaune);color:var(--encre);width:34px;height:34px;cursor:pointer;display:grid;place-items:center;padding:0}
+.ordre li .monte svg,.ordre li .descend svg{width:14px;height:14px}
+.ordre.reussi li{border-color:#2e7d32;background:#eef8ec}
+.retour{font-weight:700}
+.retour.ok{color:#2e7d32}
+.retour.ko{color:var(--rouge)}
+
+/* ---------- Panneau virtuel ---------- */
+.pv-case{border:3px solid var(--encre);background:#bfe1f2;position:relative;overflow:hidden}
+.pv-case svg{display:block;width:100%;height:auto;touch-action:none}
+.pv-astuce{position:absolute;left:10px;top:8px;background:#fff;border:2px solid var(--encre);padding:2px 8px;font-weight:800;font-size:13px}
+.pv-case .pv-reset{position:absolute;right:10px;top:8px;padding:4px 10px;font-size:13px;z-index:1}
+.soleil{cursor:grab}
+.soleil:focus{outline:none}
+.soleil:focus-visible circle{stroke:var(--bleu);stroke-width:6}
+.mesures{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch}
+.app-mesure{background:var(--blanc);border:3px solid var(--encre);padding:8px 14px;min-width:120px;display:grid;gap:2px;text-align:center}
+.app-mesure span{font-size:12px;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.06em}
+.app-mesure b{font-family:var(--mono);font-size:26px;font-variant-numeric:tabular-nums}
+
+/* ---------- Jeux ---------- */
+.jeux-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.variantes{display:flex;gap:8px;flex-wrap:wrap}
+.variantes button{background:var(--blanc);border:2px solid var(--encre);padding:5px 12px;font-weight:700;cursor:pointer}
+.variantes button[aria-pressed="true"]{background:var(--jaune)}
+.memory{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.carte-m{display:block;width:100%;aspect-ratio:4/3;max-width:100%;perspective:600px;border:0;background:none;padding:0;cursor:pointer}
+.carte-m .in{display:block;position:relative;width:100%;height:100%;transition:transform .35s;transform-style:preserve-3d}
+.carte-m.ouverte .in,.carte-m.trouvee .in{transform:rotateY(180deg)}
+.carte-m .dos,.carte-m .face{position:absolute;inset:0;backface-visibility:hidden;border:3px solid var(--encre);display:grid;place-items:center;padding:6px;text-align:center;font-weight:800;font-size:15px;line-height:1.2}
+.carte-m .dos{background:var(--bleu);color:#fff;background-image:radial-gradient(circle at 50% 50%,var(--jaune) 0 16px,transparent 17px)}
+.carte-m .face{background:var(--blanc);transform:rotateY(180deg)}
+.carte-m.trouvee .face{background:#d6f0d4}
+.carte-m .face-in{display:flex;flex-direction:column;align-items:center;gap:2px}
+.carte-m .ico{font-size:26px;line-height:1.1;font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif}
+.carte-m .unite{font-size:24px;line-height:1.1}
+.carte-m .unite-nom{font-size:13px;font-weight:600}
+.prix{display:grid;gap:12px}
+.prix .appareil{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:17px}
+.prix .appareil .ico{font-size:34px;width:56px;height:56px;display:grid;place-items:center;border:3px solid var(--encre);background:var(--papier);border-radius:50%}
+.prix input[type=range]{width:min(100%,460px)}
+.prix .estim{font-family:var(--mono);font-size:24px;font-weight:800}
+.chrono{font-family:var(--mono);font-size:28px;font-weight:800}
+.vf{display:flex;gap:10px;flex-wrap:wrap}
+.vf .btn{min-width:120px;justify-content:center;font-size:18px}
+.mc-zone{display:grid;grid-template-columns:auto minmax(220px,1fr);gap:20px;align-items:start;margin-top:24px}
+.mc-grille{display:grid;gap:0;overflow-x:auto}
+.mc-grille .c{width:34px;height:34px;position:relative}
+.mc-grille .c input{width:100%;height:100%;border:2px solid var(--encre);margin:-1px 0 0 -1px;text-align:center;font:800 17px var(--texte);text-transform:uppercase;padding:6px 0 0;background:var(--blanc)}
+.mc-grille .c input.bon{background:#d6f0d4}
+.mc-grille .c input.faux{background:#f8d7d3}
+.mc-grille .c sup{position:absolute;left:2px;top:0;font-size:9px;font-weight:800;pointer-events:none}
+.mc-indices ol{margin:4px 0 12px;padding-left:22px;display:grid;gap:4px;font-size:15px}
+
+/* ---------- Prof ---------- */
+.prof-form{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.prof-form input{font:inherit;border:3px solid var(--encre);padding:7px 10px}
+.corrige{border:3px solid var(--vert-prof);background:#f1f8ef;padding:16px 18px;display:grid;gap:10px}
+.corrige h3{color:var(--vert-prof)}
+.corrige p,.corrige td{color:#1d4d20}
+
+.pied{font-size:14px;color:var(--gris);border-top:2px dashed var(--gris-clair);padding-top:14px;margin:0}
+
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  .menu{position:fixed;inset:0 auto 0 0;width:min(86vw,340px);transform:translateX(-102%);transition:transform .2s;z-index:40;height:100%}
+  .menu.ouvert{transform:none;box-shadow:6px 0 0 rgba(0,0,0,.2)}
+  .btn.bouton-menu{display:inline-flex;position:sticky;top:8px;z-index:30;justify-self:start}
+  .accueil-hero,.plan-grille,.mc-zone{grid-template-columns:1fr}
+  .fiche{position:static}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{.menu,.bouton-menu,.suite{display:none}.app{display:block}}
+
+/* ---------- Retouches du 11/10 ---------- */
+.indice{display:grid;gap:8px;justify-items:start;margin-top:8px}
+.indice button{background:var(--jaune);border:2px solid var(--encre);padding:4px 12px;font-weight:800;cursor:pointer;font-size:14px}
+.indice .reponse-indice{background:#fff9df;border:2px dashed var(--encre);padding:8px 12px;font-family:var(--mono);font-size:15px}
+.reussite{border:2px solid var(--vert-prof);background:#f1f8ef;padding:12px 16px;display:grid;gap:4px}
+.reussite b{color:var(--vert-prof);text-transform:uppercase;font-size:13px;letter-spacing:.05em}
+.competences{margin:0;padding-left:22px;display:grid;gap:6px}
+/* Fiche de suivi des compétences (impression) */
+.fiche-comp{display:grid;gap:22px}
+.fiche-comp .entete{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px}
+.fiche-comp .entete span{border-bottom:2px solid var(--encre);padding-bottom:4px;font-weight:700}
+.fiche-comp .bloc-tp{display:grid;gap:10px;break-inside:avoid}
+.fiche-comp h3{margin:0;font-family:var(--titre);font-size:17px;color:var(--encre);text-transform:none;letter-spacing:0}
+.fiche-comp td.cc{text-align:center;width:90px;font-size:20px}
+.fiche-comp tr:first-child td.cc{font-size:14px}
+.fiche-comp .obs{border:2px solid var(--encre);min-height:64px;padding:6px 10px;font-size:13px;color:var(--gris)}
+.fiche-comp .preuves{font-size:14px;margin:0}
+@media print{
+  body{background:#fff;font-size:12px;line-height:1.35}
+  .contenu{padding:0}
+  .contenu-int{gap:12px;max-width:none}
+  .pas-imprime,.pied,.menu,.btn.bouton-menu{display:none!important}
+  .app{display:block}
+  .fiche-comp tr:first-child td.cc{font-size:11.5px}
+  .case{border:0;padding:0}
+  th,td{padding:4px 6px;font-size:11.5px}
+  .fiche-comp{gap:12px}
+  .fiche-comp .obs{min-height:40px}
+}
+.note-feuille{font-size:14px;color:var(--gris);font-style:italic;margin:0}
+.a-recopier{display:grid;gap:6px}
+/* Plan : trajet de l'énergie jour / nuit */
+.plan-label{align-self:center;font-weight:800;font-size:14px}
+.plan-scene .flux{display:none;pointer-events:none}
+.plan-scene .astre-lune{display:none}
+.plan-scene.jour .flux,.plan-scene.nuit .flux{display:inline}
+.plan-scene .flux path{stroke-dasharray:12 14;animation:flux .9s linear infinite;opacity:.9}
+.plan-scene.nuit .flux .jour-seul{display:none}
+.plan-scene.nuit .ciel{fill:#24365c}
+.plan-scene.nuit .astre-soleil{display:none}
+.plan-scene.nuit .astre-lune{display:inline}
+.plan-scene.nuit [data-id="panneaux"] polygon{fill:#4a5260}
+.plan-scene.nuit [data-id="eclairage"] circle:not(.pastille){fill:#ffe45c}
+@keyframes flux{to{stroke-dashoffset:-26}}
+@media (prefers-reduced-motion:reduce){.plan-scene .flux path{animation:none}}
+.plan-scene.nuit .zones-t{fill:#f3efd9}
+.case>*{min-width:0}
+@media (max-width:860px){.case{padding:20px 16px}.question{padding:12px}}
+/* Corrections détaillées (espace prof) */
+.correction{border:2px solid var(--vert-prof);border-left-width:6px;background:#f1f8ef;padding:14px 18px;display:grid;gap:8px;color:#1d4d20}
+.correction .corr-titre{font-weight:800;color:var(--vert-prof);padding-bottom:8px;border-bottom:2px dashed var(--vert-prof)}
+.correction p{margin:0}
+.correction td{color:#1d4d20}
+.corrige-origine summary{cursor:pointer;font-weight:800;color:var(--vert-prof)}
+.corrige-origine{display:grid;gap:10px}
+
+/* Jeux : bouton retour, niveaux du vrai ou faux */
+.retour-jeux{align-self:flex-start;width:max-content;font-size:14px;padding:6px 12px}
+.niveaux{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.niveaux .btn{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:140px}
+.niveaux .btn span{font-size:13px;font-weight:600}
+.prix .reglage{display:flex;align-items:center;gap:12px}
+.prix .reglage .btn{min-width:44px;padding:4px 12px;font-size:20px;line-height:1}
+
+/* Lexique */
+.lex-recherche{display:flex;flex-direction:column;gap:6px;max-width:420px}
+.lex-recherche label{font-weight:800}
+.lex-recherche input{font:inherit;padding:10px 12px;border:3px solid var(--encre);background:var(--blanc);color:var(--encre)}
+.lexique{margin:0;display:grid;gap:0}
+.lex-mot{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:6px 20px;padding:14px 0;border-top:2px dashed #d8d2c2}
+.lex-mot:first-child{border-top:0;padding-top:4px}
+.lex-mot dt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.lex-abr{font-weight:800;font-size:20px;background:var(--jaune);border:2px solid var(--encre);padding:2px 10px;width:max-content;max-width:100%}
+.lex-nom{font-size:14px;font-weight:600;color:var(--gris)}
+.lex-mot dd{margin:0;min-width:0}
+.lex-ex{display:block;margin-top:4px;font-size:14px;color:var(--bleu);font-weight:600}
+.lex-groupe h2 span{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif}
+@media (max-width:640px){.lex-mot{grid-template-columns:1fr}}
+
+/* Corrigé de fin de séance aéré */
+.corrige{gap:28px;padding:24px 26px}
+.corrige .corr-partie{display:grid;gap:22px}
+.corrige .corr-partie h3{margin:8px 0 0;padding-bottom:6px;border-bottom:3px solid var(--vert-prof)}
+.corrige .correction{gap:12px;padding:18px 24px;line-height:1.75}
+.corrige .correction .corr-titre{margin-bottom:4px}
+
+/* Simulateur Modbus (séance 3.3) */
+.mb-fenetre{border:3px solid var(--encre);background:var(--blanc);box-shadow:5px 5px 0 var(--encre)}
+.mb-barre{background:#2b3a4a;color:#fff;font-weight:800;font-size:13px;padding:8px 12px;display:flex;align-items:center;gap:12px}
+.mb-points{display:flex;gap:5px}.mb-points i{width:10px;height:10px;border-radius:50%;background:#e8e2d4;display:block}
+.mb-corps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;padding:16px}
+.mb-form{display:grid;gap:12px;min-width:0}
+.mb-form fieldset{border:2px solid #d8d2c2;padding:10px 12px;margin:0;display:grid;gap:10px;min-width:0}
+.mb-form legend{font-weight:800;padding:0 6px}
+.mb-champ{display:grid;gap:3px;font-size:14px;font-weight:700}
+.mb-champ input,.mb-champ select{font:15px var(--mono);padding:7px 9px;border:2px solid var(--encre);background:var(--blanc);color:var(--encre);min-width:0;width:100%;box-sizing:border-box}
+.mb-actions{display:flex;gap:10px;flex-wrap:wrap}
+.mb-resultat{display:grid;gap:12px;align-content:start;min-width:0}
+.mb-valeur{border:3px solid var(--encre);background:var(--papier);padding:10px 14px;text-align:center;display:grid}
+.mb-valeur span{font-size:12px;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.06em}
+.mb-valeur b{font-family:var(--mono);font-size:34px}
+.mb-journal{background:#1e2a36;color:#d9e4ee;font:13px/1.5 var(--mono);padding:10px 12px;min-height:180px;max-height:260px;overflow:auto;display:grid;gap:4px;align-content:start}
+.mb-journal p{margin:0}
+.mb-journal .mb-heure{color:#7f93a8}
+.mb-journal .mb-ok{color:#9be29b}
+.mb-journal .mb-ko{color:#ffb3a8}
+.mb-journal .mb-gris{color:#7f93a8}
+@media (max-width:760px){.mb-corps{grid-template-columns:1fr}}
+.mb-champ select{font:14px var(--texte, inherit)}
+.mb-journal{display:block}.mb-journal p{margin:0 0 4px}
+
+/* Voile derrière le menu ouvert (petit écran) : un clic dessus referme le menu */
+.voile-menu{display:none}
+@media (max-width:860px){.voile-menu.visible{display:block;position:fixed;inset:0;z-index:35;background:rgba(27,26,23,.35)}}
+
+/* À retravailler */
+.ar-liste{display:grid;gap:18px}
+.ar-item{border-left-width:8px}
+.ar-item.ar-profs{border-left-color:var(--violet)}
+.ar-item.ar-equipe{border-left-color:var(--bleu)}
+.ar-item h2{margin:0}
+.ar-item ul{margin:0;padding-left:22px;display:grid;gap:4px}
+.ar-tete{display:flex;align-items:center;gap:10px}
+.ar-num{font-family:var(--mono);font-weight:800;background:var(--encre);color:#fff;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;font-size:14px}
+.ar-statut{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border:2px solid var(--encre)}
+.ar-profs .ar-statut{background:var(--violet-clair)}
+.ar-equipe .ar-statut{background:var(--bleu-clair)}
+.carte.a-retravailler{border-left:8px solid var(--violet);background:var(--violet-clair)}
+
+/* Simulateur de CPI (mise à la terre, IT) */
+.cpi-etat{border:3px solid var(--gris-clair);background:var(--blanc);padding:12px 14px;font-weight:800}
+.cpi-etat.alarme{border-color:var(--rouge);color:var(--rouge);background:#fdecea}
+.cpi-etat.ok{border-color:var(--vert-prof);color:var(--vert-prof)}
+.case p a{overflow-wrap:anywhere}
+.cpi-journal{display:grid;gap:8px;padding:0 16px 16px}
+.cpi-journal tbody tr:first-child td{background:var(--blanc);font-weight:400}
+.cpi-journal td{white-space:nowrap}
+/* Savoirs associés : une ligne par thème */
+.savoirs{margin:0 0 6px;padding-left:22px;display:grid;gap:6px}
+.savoirs b{display:block;color:var(--bleu)}
+.titre-savoirs{margin-bottom:0}
+/* À retravailler : une liste à tirets par TP */
+.ar-groupe h2{margin:0}
+ul.tirets{list-style:none;padding-left:0;margin:0;display:grid;gap:12px}
+ul.tirets>li{position:relative;padding-left:20px}
+ul.tirets>li::before{content:"–";position:absolute;left:2px;font-weight:800}
+ul.tirets ul.tirets{margin-top:6px;gap:4px}
+.ar-groupe .ar-statut{display:inline-block;margin-right:4px;font-size:11px}
+li.ar-profs .ar-statut{background:var(--violet-clair)}
+li.ar-equipe .ar-statut{background:var(--bleu-clair)}
+.schema figcaption{font-size:14px;color:var(--gris);margin-top:8px;line-height:1.45}
+.fiche-rapide{border:3px solid var(--encre);background:var(--blanc);margin-bottom:6px}
+.fiche-rapide summary{cursor:pointer;font-weight:800;padding:12px 16px;background:var(--jaune)}
+.fiche-rapide>div{padding:4px 16px 14px;display:grid;gap:10px}
+/* Exemple de compte rendu en « document pro » */
+.doc-pro{background:#fff;border:1px solid #c9c2b0;box-shadow:3px 4px 0 rgba(27,26,23,.15);max-width:560px;margin:8px 0;font-size:14px}
+.doc-tete{display:grid;gap:2px;padding:10px 14px;background:#2b3a4a;color:#fff}
+.doc-tete b{font-size:16px;text-transform:uppercase;letter-spacing:.06em}
+.doc-tete span{font-size:12.5px;color:#cfd9e3}
+.doc-pro table{width:100%;min-width:0;background:#fff}
+.doc-pro th,.doc-pro td{border:0;border-bottom:1px solid #e3ddd0;font-size:14px;padding:7px 14px;background:#fff}
+.doc-pro th{width:38%;color:#2b3a4a;font-weight:800;background:#f6f3ec}
+.doc-pied{padding:10px 14px;font-size:12.5px;color:var(--gris);text-align:right;font-style:italic}
+.doc-pro tr:first-child td{background:#fff;font-weight:400}
+/* Encadrés d'en-tête (objectifs, savoirs, compétences) et paragraphes annexes */
+.encadre{border:2px solid var(--bleu);background:var(--blanc);padding:12px 16px;display:grid;gap:8px}
+.encadre h3{margin:0;display:flex;gap:8px;align-items:center}
+.encadre ul{margin:0}
+ul.puces{margin:0;padding-left:22px;display:grid;gap:4px}
+.note-annexe{font-size:14px;color:var(--gris);background:var(--papier-2);border-left:4px solid var(--gris-clair);padding:8px 12px;font-style:italic;margin:0}
+/* Lien vers une vidéo en ligne */
+.video{display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--encre);background:var(--blanc);border:3px solid var(--encre);padding:12px 16px;box-shadow:4px 4px 0 var(--encre)}
+.video:hover{transform:translate(-1px,-1px)}
+.video-play{flex:none;width:52px;height:52px;border-radius:50%;background:var(--rouge);color:#fff;display:grid;place-items:center;font-size:22px}
+.video b{display:block}
+.video small{display:block;color:var(--gris);font-size:12.5px;margin-top:2px}
+
+/* Simulateur « Où passe l'électron ? » (intro du TP terre) */
+.sim-terre{display:grid;gap:14px}
+.sim-terre .choix{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sim-terre .choix span{font-weight:700;margin-right:4px}
+.sim-terre button{font:inherit;font-weight:700;border:2px solid var(--encre);background:var(--blanc);color:var(--encre);border-radius:8px;padding:8px 14px;cursor:pointer}
+.sim-terre button[aria-pressed=true]{background:var(--bleu);color:var(--blanc);border-color:var(--bleu)}
+.sim-terre button.suivant{background:var(--jaune)}
+.sim-terre button:disabled{opacity:.35;cursor:default}
+.sim-terre .schema{background:var(--blanc);border:2px solid var(--encre);border-radius:6px;overflow-x:auto;margin:0}
+.sim-terre svg{display:block;width:100%;min-width:620px;height:auto}
+.sim-terre svg text{font-family:var(--texte)}
+.sim-terre .fil{fill:none;stroke-width:3;stroke-linejoin:round}
+.sim-terre .legende{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:var(--gris);margin:0;padding:0;list-style:none}
+.sim-terre .legende i{display:inline-block;width:26px;height:5px;vertical-align:middle;margin-right:6px;border-radius:2px}
+.sim-terre .etape{background:var(--blanc);border:3px solid var(--encre);border-radius:8px;padding:14px 16px;display:grid;gap:10px}
+.sim-terre .etape .num{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gris);font-weight:700}
+.sim-terre .etape h3{margin:0;font-size:1.15rem;text-wrap:balance}
+.sim-terre .etape p{margin:0;max-width:70ch}
+.sim-terre .etape .sim-bulle{display:flex;gap:10px;align-items:center;font-style:italic;color:var(--gris);background:none;border:0;padding:0}
+.sim-terre .etape .sim-bulle b{flex:0 0 34px;height:34px;border-radius:50%;background:var(--jaune);border:2px solid var(--encre);display:grid;place-items:center;font-style:normal;color:var(--encre);font-size:.8rem}
+.sim-terre .sim-nav{display:flex;gap:8px;flex-wrap:wrap}
+.sim-terre .chiffre{display:inline-block;background:var(--papier);border:1px solid var(--gris-clair);border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums;font-weight:700}
+.sim-terre .retenir{background:#e8f3e9;border-left:6px solid var(--vert-prof);padding:10px 14px;border-radius:4px;font-weight:600}
+.sim-terre .note{font-size:.85rem;color:var(--gris);font-style:italic;margin:0}
+@keyframes sim-clign{50%{opacity:.25}}
+.sim-terre .clign{animation:sim-clign .6s infinite}
+.sim-intro{display:grid;gap:10px;margin-top:6px;padding-top:14px;border-top:2px dashed var(--gris-clair)}
+.sim-intro h3{margin:0}
+.sim-intro p{margin:0}
+/* Tableau des abréviations en haut de chaque séance */
+.abrev{background:var(--blanc);border:2px solid var(--bleu);border-radius:6px;padding:8px 14px}
+.abrev summary{cursor:pointer;font-weight:700;color:var(--bleu)}
+.abrev table{width:100%;border-collapse:collapse;margin-top:8px;font-size:15px}
+.abrev th,.abrev td{border-top:1px solid var(--gris-clair);padding:6px 8px;text-align:left;vertical-align:top}
+.abrev th{white-space:nowrap;font-family:var(--mono);color:var(--bleu);width:1%}
+.abrev tr:first-child td,.abrev tr:first-child th{background:none;color:inherit;font-weight:inherit}
+.abrev tr:first-child th{color:var(--bleu);font-weight:700}
+
+/* Paragraphes aérés automatiquement */
+ul.aere{margin:.4em 0 .8em;padding-left:1.3em}
+ul.aere li{margin:.3em 0;line-height:1.5}
+ul.aere ul{margin:.2em 0 .2em;padding-left:1.2em}
+p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
