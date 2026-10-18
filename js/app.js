@@ -413,7 +413,11 @@
     // Fiche technique accessible dès le début des exercices (elle reste aussi en fin de séance)
     var fiche = s.sections.filter(function (x) { return x.kind === "ressource" && /Fiche technique/.test(x.titre); })[0];
     if (fiche) h += '<details class="fiche-rapide"><summary>📄 Fiche technique de référence : à garder sous les yeux pendant les exercices</summary><div>' + rendreBlocs(fiche.blocks, fiche, s) + "</div></details>";
-    s.sections.forEach(function (sec) { h += rendreSection(sec, s); });
+    s.sections.forEach(function (sec) {
+      h += rendreSection(sec, s);
+      // Document ajouté pour le DEF2 (ombre) : courbes de production avec et sans ombre
+      if (sec.id === "s4-1-3") h += '<figure class="schema"><img src="images/def2-courbes.svg" alt="Courbes de production sur deux journées ensoleillées : le jour signalé, la production chute fortement entre 14 h et 17 h puis redevient normale" data-zoom><figcaption>Document pour le DEF2 : comparez les deux courbes. Le ciel était dégagé les deux jours.</figcaption></figure>';
+    });
     if (profOuvert() && modeCorrige && s.corrige.length) h += blocCorrige(s);
     // Séance précédente / suivante, sans passer des TP solaires au module « terre »
     var ids = Object.keys(seances).filter(function (k) { return (seances[k].tp === "terre") === (s.tp === "terre"); }), i = ids.indexOf(s.id);
