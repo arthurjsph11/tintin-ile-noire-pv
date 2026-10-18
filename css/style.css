@@ -481,3 +481,4 @@ ul.aere{margin:.4em 0 .8em;padding-left:1.3em}
 ul.aere li{margin:.3em 0;line-height:1.5}
 ul.aere ul{margin:.2em 0 .2em;padding-left:1.2em}
 p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
+.bandeau-corrige{background:var(--vert-prof);color:#fff;font-weight:700;padding:6px 12px;border-radius:6px;display:inline-block;margin:0 0 8px}

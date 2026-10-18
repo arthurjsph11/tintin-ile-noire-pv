@@ -287,7 +287,7 @@
         // Tableau à recopier et compléter sur la feuille (VIVANT.tableauxARemplir : [entêtes, lignes])
         var tr = (V.tableauxARemplir || {})[b.id];
         if (tr) h += '<p class="note-feuille">Recopiez ce tableau sur votre feuille et complétez-le.</p>' + rendreTable([tr[0].map(function (c) { return [[[c, 1, ""]]]; })].concat(tr[1].map(function (l) { return [[[[l, 1, ""]]]].concat(tr[0].slice(1).map(function () { return []; })); })));
-        if (profOuvert()) h += correction(s, b.num);
+        if (profOuvert() && modeCorrige) h += correction(s, b.num);
         if (s.id === "1-1" && b.num === "4") h += '<div data-composant="ordre"></div>';
         if (b.id === "q-1-2-12") h += '<div data-composant="panneau-virtuel"></div>';
         if (b.id === "q-3-3-V3B-2") h += '<div data-composant="modbus"></div>';
@@ -405,14 +405,16 @@
     return '<details class="abrev" open><summary>🔤 Les abréviations de cette ' + (s.tp === "terre" ? "activité" : "séance") + " (" + l.length + ')</summary><table><tbody>' +
       l.map(function (m) { return '<tr><th scope="row">' + esc(m[0]) + "</th><td><b>" + esc(m[1]) + "</b> : " + esc(m[2]) + "</td></tr>"; }).join("") + "</tbody></table></details>";
   }
+  // Les corrections ne s'affichent que sur la page « Corrigé » de l'Espace prof, jamais dans le TP lui-même
+  var modeCorrige = false;
   function pageSeance(s) {
-    var h = '<span class="bandeau">' + (s.tp === "terre" ? "Mise à la terre · Activité " + s.num + " · " + esc(s.code) : "TP " + s.tp + " · Séance " + s.num) + '</span><h1 class="titre-page">' + esc(s.titre) + "</h1>";
+    var h = (modeCorrige ? '<p class="bandeau-corrige">Version corrigée : réservée aux enseignants</p>' : "") + '<span class="bandeau">' + (s.tp === "terre" ? "Mise à la terre · Activité " + s.num + " · " + esc(s.code) : "TP " + s.tp + " · Séance " + s.num) + '</span><h1 class="titre-page">' + esc(s.titre) + "</h1>";
     h += tableauAbreviations(s);
     // Fiche technique accessible dès le début des exercices (elle reste aussi en fin de séance)
     var fiche = s.sections.filter(function (x) { return x.kind === "ressource" && /Fiche technique/.test(x.titre); })[0];
     if (fiche) h += '<details class="fiche-rapide"><summary>📄 Fiche technique de référence : à garder sous les yeux pendant les exercices</summary><div>' + rendreBlocs(fiche.blocks, fiche, s) + "</div></details>";
     s.sections.forEach(function (sec) { h += rendreSection(sec, s); });
-    if (profOuvert() && s.corrige.length) h += blocCorrige(s);
+    if (profOuvert() && modeCorrige && s.corrige.length) h += blocCorrige(s);
     // Séance précédente / suivante, sans passer des TP solaires au module « terre »
     var ids = Object.keys(seances).filter(function (k) { return (seances[k].tp === "terre") === (s.tp === "terre"); }), i = ids.indexOf(s.id);
     var nom = function (x) { return (x.tp === "terre" ? "Activité " : "Séance ") + x.num; };
@@ -589,7 +591,7 @@
     else if (r === "fiche-competences") html = profOuvert() ? pageFiche() : pageProf();
     else if (r === "jeux" || r.indexOf("jeu-") === 0) html = window.JEUX.page(r);
     else if (r.indexOf("seance-") === 0 && seances[r.slice(7)]) html = pageSeance(seances[r.slice(7)]);
-    else if (r.indexOf("corrige-") === 0 && seances[r.slice(8)] && profOuvert()) { html = pageSeance(seances[r.slice(8)]); cible = r; }
+    else if (r.indexOf("corrige-") === 0 && seances[r.slice(8)] && profOuvert()) { modeCorrige = true; html = pageSeance(seances[r.slice(8)]); modeCorrige = false; }
     else {
       var s = seanceDeSection(r) || seanceDeQuestion(r);
       if (s) { html = pageSeance(s); cible = r; } else html = pageAccueil();
@@ -600,7 +602,7 @@
       var dejaLa = cleSeance && main.getAttribute("data-seance") === cleSeance;
       if (!dejaLa) {
         main.innerHTML = html;
-        main.setAttribute("data-seance", cleSeance || (r.indexOf("seance-") === 0 ? r.slice(7) : ""));
+        main.setAttribute("data-seance", r.indexOf("corrige-") === 0 ? "" : cleSeance || (r.indexOf("seance-") === 0 ? r.slice(7) : ""));
         monter(main);
       }
       main.setAttribute("data-route", r);
