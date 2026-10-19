@@ -541,3 +541,23 @@ p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
 .mdp-form label{display:grid;gap:4px;font-weight:700;font-size:14.5px}
 .mdp-form input{font:inherit;padding:8px 10px;border:2px solid var(--encre);border-radius:4px;background:var(--blanc)}
 .mdp-etat{margin:0;min-height:1.2em}
+
+/* ---------- Espace prof rangé ---------- */
+.prof-corriges{display:grid;gap:4px;justify-items:start;padding:22px 26px;border:3px solid var(--encre);border-left:10px solid var(--vert-prof);background:var(--blanc);color:var(--encre);text-decoration:none}
+.prof-corriges .etiquette{background:var(--vert-prof)}
+.prof-corriges b{font-family:var(--titre);font-size:22px;line-height:1.2}
+.prof-corriges small{color:var(--gris);font-size:15px}
+.prof-corriges .btn{margin-top:8px}
+.prof-groupe{display:grid;gap:12px}
+.prof-groupe>h2{margin:8px 0 0;font-family:var(--titre);font-size:18px;text-transform:uppercase;letter-spacing:.03em;border-bottom:3px solid var(--encre);padding-bottom:6px}
+.prof-groupe>p{margin:0}
+.prof-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.prof-tuile{display:grid;align-content:start;justify-items:start;gap:4px;padding:16px;border:2px solid var(--encre);border-radius:4px;background:var(--blanc);color:var(--encre);text-decoration:none;min-width:0}
+.prof-tuile:hover,.prof-corriges:hover{background:var(--papier-2)}
+.prof-tuile b{font-size:16.5px;line-height:1.3}
+.prof-tuile small{color:var(--gris);line-height:1.45}
+.prof-note{font-size:13.5px;color:var(--gris);margin:0}
+.liste-corriges{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.liste-corriges a{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border:2px solid var(--gris-clair);border-radius:4px;text-decoration:none;color:var(--encre);background:var(--papier)}
+.liste-corriges a:hover{border-color:var(--vert-prof);background:#eef7ee}
+.liste-corriges .num-seance{background:var(--vert-prof)}

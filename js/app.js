@@ -407,7 +407,7 @@
   // Les corrections ne s'affichent que sur la page « Corrigé » de l'Espace prof, jamais dans le TP lui-même
   var modeCorrige = false;
   function pageSeance(s) {
-    var h = (modeCorrige ? '<p class="bandeau-corrige">Version corrigée : réservée aux enseignants</p>' : "") + '<span class="bandeau">' + (s.tp === "terre" ? "Mise à la terre · Activité " + s.num + " · " + esc(s.code) : "TP " + s.tp + " · Séance " + s.num) + '</span><h1 class="titre-page">' + esc(s.titre) + "</h1>";
+    var h = (modeCorrige ? '<p class="bandeau-corrige">Version corrigée : réservée aux enseignants · <a href="#corriges">Tous les corrigés</a></p>' : "") + '<span class="bandeau">' + (s.tp === "terre" ? "Mise à la terre · Activité " + s.num + " · " + esc(s.code) : "TP " + s.tp + " · Séance " + s.num) + '</span><h1 class="titre-page">' + esc(s.titre) + "</h1>";
     h += tableauAbreviations(s);
     // Fiche technique accessible dès le début des exercices (elle reste aussi en fin de séance)
     var fiche = s.sections.filter(function (x) { return x.kind === "ressource" && /Fiche technique/.test(x.titre); })[0];
@@ -574,11 +574,33 @@
     [["Modifier","Choisissez le TP dans la liste, changez les textes, puis cliquez sur « Enregistrer et voir le résultat »."],["Vérifier","Ouvrez le TP (et son corrigé) pour relire le résultat."],["Télécharger","Cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : <code>contenu.js</code>, <code>terre.js</code>, <code>corriges.js</code>."],["Partager","Copiez-les dans le dossier <code>js</code> du site sur la clé USB, en remplaçant les anciens, puis recopiez la clé sur les autres ordinateurs. Pour le site en ligne, envoyez les 3 fichiers à la personne qui gère GitHub."]].forEach(function (e, i) { h += '<li><span class="gd-pas">' + (i + 1) + '</span><div><b>' + e[0] + '</b><p>' + e[1] + '</p></div></li>'; });
     h += '</ol></section>';
     h += '<section class="gd-bloc"><h2><span class="gd-num">4</span>Une erreur ? On revient en arrière</h2><p>Le bouton <b>« Revenir à la version d\'origine »</b> efface toutes les modifications de cet ordinateur. Le TP redevient celui livré par l\'équipe.</p></section>';
-    h += '<section class="gd-bloc"><h2><span class="gd-num">5</span>Le mot de passe a circulé ?</h2><p>Dans l\'Espace prof, la carte <b>« Changer le mot de passe »</b> demande l\'ancien puis le nouveau. Il change tout de suite sur cet ordinateur, et un fichier <code>acces.js</code> est téléchargé.</p><p>Copiez <code>acces.js</code> dans le dossier <code>js</code> de la clé USB et sur GitHub : le nouveau mot de passe marche alors partout. Gardez une copie de l\'ancien fichier <code>acces.js</code> en lieu sûr : si le nouveau mot de passe est oublié, il suffit de le remettre.</p></section>';
+    h += '<section class="gd-bloc"><h2><span class="gd-num">5</span>Le mot de passe a circulé ?</h2><p>Dans l\'Espace prof, la page <b>« Changer le mot de passe »</b> demande l\'ancien puis le nouveau. Il change tout de suite sur cet ordinateur, et un fichier <code>acces.js</code> est téléchargé.</p><p>Copiez <code>acces.js</code> dans le dossier <code>js</code> de la clé USB et sur GitHub : le nouveau mot de passe marche alors partout. Gardez une copie de l\'ancien fichier <code>acces.js</code> en lieu sûr : si le nouveau mot de passe est oublié, il suffit de le remettre.</p></section>';
     h += '<div class="gd-go"><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div>';
     return h;
   }
 
+  function pageCorriges() {
+    var h = '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Corrigés</h1>' + bulle("Les réponses de chaque séance, réservées aux enseignants. Elles ne s'affichent jamais dans les pages élèves.");
+    function carte(etiq, titre, lignes) {
+      return '<section class="case"><h2><span class="etiquette">' + etiq + '</span>' + esc(titre) + '</h2><ul class="liste-corriges">' + lignes + '</ul></section>';
+    }
+    C.tps.forEach(function (tp) {
+      var l = "";
+      tp.seances.forEach(function (sid) { var s = seances[sid]; l += '<li><a href="#corrige-' + sid + '"><span class="num-seance">' + s.num + '</span>' + esc(s.titre) + '</a></li>'; });
+      h += carte("TP " + tp.num, tp.titre, l);
+    });
+    if (T.seances.length) {
+      var l = "";
+      T.seances.forEach(function (s) { l += '<li><a href="#corrige-' + s.id + '"><span class="num-seance">' + esc(s.code) + '</span>' + esc(s.titre) + '</a></li>'; });
+      h += carte("TP à part", T.titre, l);
+    }
+    return h + pied();
+  }
+  function pageMotDePasse() {
+    return '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Changer le mot de passe</h1>' +
+      bulle("Le nouveau mot de passe marche d'abord sur cet ordinateur. Un fichier acces.js est téléchargé : copiez-le dans le dossier js de la clé USB et sur GitHub pour le changer partout. Gardez l'ancien fichier en lieu sûr : il permet de revenir en arrière si le nouveau mot de passe est oublié.") +
+      '<section class="case"><div data-composant="motdepasse"></div></section>' + pied();
+  }
   function pageProf() {
     if (!profOuvert()) {
       return '<span class="bandeau">Espace prof</span><h1 class="titre-page">Espace enseignant</h1>' +
@@ -586,27 +608,27 @@
         '<form class="prof-form" id="prof-form"><label for="mdp">Mot de passe</label><input id="mdp" type="password" autocomplete="off"><button class="btn" type="submit">Entrer</button><span class="retour ko" id="prof-err" hidden>Mot de passe incorrect.</span></form>' +
         '<p style="font-size:13px;color:var(--gris)">Protection simple, sans serveur : elle évite seulement que les élèves tombent sur les corrigés par hasard.</p></section>' + pied();
     }
-    var h = '<span class="bandeau">Espace prof</span><h1 class="titre-page">Espace enseignant</h1>' +
-      '<section class="case"><h2>Mode d\'emploi</h2><p>Les corrigés s\'affichent maintenant aussi en bas de chaque séance, en vert. Ils sont repris sans modification des supports enseignants.</p>' +
-      "<p><strong>À relire par l'enseignant :</strong> les textes ajoutés par l'équipe (bulles de Tournesol, fiches du plan interactif, quiz, jeux) se trouvent dans le fichier <code>js/vivant.js</code>.</p>" +
-      '<p>Le panneau virtuel de la séance 1.2 est une simulation simplifiée : il remplace la maquette seulement si le lycée n\'en a pas.</p></section>';
-    h += '<section class="case"><h2><span class="etiquette">À imprimer</span>Fiche de suivi des compétences</h2><p>Le site ne garde pas la progression des élèves. Imprimez une fiche par élève : elle regroupe les bilans de compétences de tous les TP, à cocher sur papier.</p><div><a class="btn jaune" href="#fiche-competences">Ouvrir la fiche</a></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Dossier annexe</span>Synthèse des compétences du module</h2><p>Document de l\'enseignant, repris tel quel : le parcours des 11 séances, les compétences C1 à C13 travaillées dans chaque activité, et les fiches détaillées par compétence.</p><div><a class="btn jaune" href="annexes/Synthese_competences_module_PV.pdf" target="_blank" rel="noopener">Ouvrir le PDF</a></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Outil</span>Modifier les TP</h2><p>Changer un texte, une question, un tableau ou une correction, ajouter ou supprimer une question.' + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Des modifications sont enregistrées dans ce navigateur.</b>" : "") + '</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#editeur-guide">Mode d\'emploi</a><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Outil</span>Changer le mot de passe</h2><p>Si le mot de passe a circulé chez les élèves, changez-le ici. Comme pour l\'éditeur, il change d\'abord sur cet ordinateur ; un fichier <code>acces.js</code> est téléchargé pour le changer partout.</p><div data-composant="motdepasse"></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Annexe</span>Ressources et repères</h2><p>Dossiers, références et limites de chaque activité (TP 5 et mise à la terre). Retirés des pages élèves.</p><div><a class="btn" href="#ressources">Ouvrir</a></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Pour l\'équipe</span>À retravailler</h2><p>Ce qu\'on ne sait pas encore et ce qui reste à revoir, avec les questions à poser aux profs.</p><div><a class="btn jaune" href="#a-retravailler">Voir la liste</a></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Pour l\'équipe</span>Lexique des abréviations</h2><p>Vmp, Imp, Voc, Isc, kWc, MPPT… Toutes les abréviations des TP, expliquées simplement avec les valeurs de Tintin. Réservé à l\'équipe : les élèves découvrent les notions au fil des séances.</p><div><a class="btn jaune" href="#lexique">Ouvrir le lexique</a></div></section>';
-    C.tps.forEach(function (tp) {
-      h += '<section class="case"><h2><span class="etiquette">TP ' + tp.num + "</span>" + esc(tp.titre) + "</h2><div style=\"display:flex;gap:8px;flex-wrap:wrap\">";
-      tp.seances.forEach(function (sid) { h += '<a class="btn leger" href="#corrige-' + sid + '">Corrigé ' + seances[sid].num + "</a>"; });
-      h += "</div></section>";
-    });
-    if (T.seances.length) {
-      h += '<section class="case"><h2><span class="etiquette">TP à part</span>' + esc(T.titre) + "</h2><div style=\"display:flex;gap:8px;flex-wrap:wrap\">";
-      T.seances.forEach(function (s) { h += '<a class="btn leger" href="#corrige-' + s.id + '">Corrigé ' + esc(s.code) + "</a>"; });
-      h += "</div></section>";
+    function tuile(etiq, titre, texte, lien, cible) {
+      return '<a class="prof-tuile" href="' + lien + '"' + (cible ? ' target="_blank" rel="noopener"' : "") + '><span class="etiquette">' + etiq + '</span><b>' + titre + '</b><small>' + texte + '</small></a>';
     }
+    function groupe(titre, texte, tuiles) {
+      return '<section class="prof-groupe"><h2>' + titre + '</h2>' + (texte ? '<p>' + texte + '</p>' : "") + '<div class="prof-grille">' + tuiles + '</div></section>';
+    }
+    var nbCorr = C.tps.reduce(function (n, tp) { return n + tp.seances.length; }, 0) + T.seances.length;
+    var h = '<span class="bandeau">Espace prof</span><h1 class="titre-page">Espace enseignant</h1>';
+    h += '<a class="prof-corriges" href="#corriges"><span class="etiquette">Corrigés</span><b>Tous les corrigés</b><small>' + nbCorr + ' séances, rangées par TP comme dans le menu des élèves.</small><span class="btn">Ouvrir les corrigés</span></a>';
+    h += groupe("Dossier annexe", "",
+      tuile("À imprimer", "Fiche de suivi des compétences", "Une fiche par élève, à cocher sur papier.", "#fiche-competences") +
+      tuile("PDF", "Synthèse des compétences", "Parcours des 11 séances et compétences C1 à C13.", "annexes/Synthese_competences_module_PV.pdf", true) +
+      tuile("Annexe", "Ressources et repères", "Dossiers, références et limites (TP 5 et mise à la terre).", "#ressources"));
+    h += groupe("Outils", "",
+      tuile("Outil", "Modifier les TP", "Textes, questions, tableaux, corrections." + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Modifications enregistrées ici.</b>" : ""), "#editeur") +
+      tuile("Aide", "Mode d'emploi de l'éditeur", "Ce qu'on peut changer et comment le partager.", "#editeur-guide") +
+      tuile("Outil", "Changer le mot de passe", "Si le mot de passe a circulé chez les élèves.", "#mot-de-passe"));
+    h += groupe("Pour l'équipe", "",
+      tuile("Équipe", "À retravailler", "Questions à poser aux profs et points à revoir.", "#a-retravailler") +
+      tuile("Équipe", "Lexique des abréviations", "Vmp, Imp, Voc, Isc, kWc, MPPT… expliquées simplement.", "#lexique"));
+    h += '<p class="prof-note">Les textes ajoutés par l\'équipe (bulles de Tournesol, fiches du plan, quiz, jeux) sont dans <code>js/vivant.js</code>. Le panneau virtuel de la séance 1.2 est une simulation simplifiée : il remplace la maquette seulement si le lycée n\'en a pas.</p>';
     return h + pied();
   }
   function pied() {
@@ -624,6 +646,8 @@
     else if (r === "a-retravailler") html = profOuvert() ? pageARetravailler() : pageProf();
     else if (r === "prof") html = pageProf();
     else if (r === "ressources") html = profOuvert() ? pageRessources() : pageProf();
+    else if (r === "corriges") html = profOuvert() ? pageCorriges() : pageProf();
+    else if (r === "mot-de-passe") html = profOuvert() ? pageMotDePasse() : pageProf();
     else if (r === "editeur-guide") html = profOuvert() ? pageGuideEditeur() : pageProf();
     else if (r === "editeur") html = profOuvert() ? '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Modifier les TP</h1><p><a href="#editeur-guide">Lire le mode d\'emploi illustré</a></p>' + bulle("Attention : « Enregistrer » ne modifie le TP que sur CET ordinateur et CE navigateur. Les autres PC, la clé USB et le site en ligne gardent l'ancienne version.") + '<ol class="ed-aide"><li>Modifiez les textes, puis cliquez sur « Enregistrer et voir le résultat » pour vérifier.</li><li>Pour que tout le monde ait la nouvelle version : cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : contenu.js, terre.js et corriges.js.</li><li>Copiez ces 3 fichiers dans le dossier <b>js</b> du site (clé USB ou dossier partagé), en remplaçant les anciens. Recopiez ensuite la clé sur les autres ordinateurs.</li><li>Pour le site en ligne, les 3 fichiers doivent être déposés sur GitHub par une personne qui a accès au dépôt.</li></ol>' + '<div data-composant="editeur"></div>' : pageProf();
     else if (r === "fiche-competences") html = profOuvert() ? pageFiche() : pageProf();
@@ -650,7 +674,7 @@
       var el = document.getElementById(cible);
       if (el) { el.scrollIntoView({ block: "start" }); if (el.classList.contains("question")) { el.classList.remove("surligne"); void el.offsetWidth; el.classList.add("surligne"); } }
     } else window.scrollTo(0, 0);
-    if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide") && !profOuvert())) brancherProf();
+    if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide" || r === "corriges" || r === "mot-de-passe") && !profOuvert())) brancherProf();
     document.title = "Tintin sur l'île Noire PV";
   }
   function brancherProf() {
