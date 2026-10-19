@@ -214,7 +214,7 @@ window.CORRIGES = {
     "Attendu : les chiffres viennent des essais de l'élève."],
   "2-3|33": ["Attendu : la station ou le lieu le plus proche de l'Île d'Or, avec sa distance si ce n'est pas le point exact."],
   "2-3|34": ["Attendu : 3,6 kWc (12 × 300 Wc), la direction et la pente retenues avec AutoCalSol, en vérifiant la convention des angles."],
-  "2-3|35": ["Attendu : technologie, pose et pertes notées, entrées validées par l'enseignant, production annuelle relevée en kWh/an.",
+  "2-3|35": ["Attendu : technologie des modules notée (par exemple silicium monocristallin), entrées validées par l'enseignant, production annuelle relevée en kWh/an.",
     "Si le site ne marche pas : écrire « calcul non réalisé », ne rien inventer."],
   "2-3|36": ["Attendu : le tableau compare les deux logiciels ligne par ligne. Toute différence de paramètre est signalée."],
   "2-3|37": ["Formule : écart (%) = |TecSol − AutoCalSol| ÷ AutoCalSol × 100",

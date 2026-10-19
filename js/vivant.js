@@ -262,6 +262,7 @@ window.VIVANT.retouches = {
     ["Faire V3B sur le simulateur préparé par l’enseignant.", "V3B (supervision Modbus) : retiré pour l'instant, à voir avec les enseignants."],
     ["Q34 et Q35 ; V3B", "Q34 et Q35"],
     ["C10 : lecture du simulateur V3B ; ", ""],
+    ["Pose, technologie, pertes ___________________", "Technologie des modules ______________________"], // 2.3 Q35 (Arthur, 19/10)
     ["Accès : https://conso.calcpv.net/fr?from=CalcPvAutonome\n", ""], // 2.1 : le simulateur hors ligne remplace CalcPV (Arthur, 19/10) // V3B retiré : sa preuve C10 aussi (19/10)
     ["Chaîne d’informations : capteur, supervision et Modbus TCP sur simulateur.", "Chaîne d’informations : capteur et supervision."]
   ],
@@ -270,6 +271,7 @@ window.VIVANT.retouches = {
   // Énoncés réécrits, avec un bouton « Indice » facultatif
   enonces: {
     "q-3-2-V3A-1": { texte: "Pour une liaison, relevez Ib, In et Iz dans le dossier. Vérifiez Ib ≤ In ≤ Iz. Sur la notice de la protection, relevez aussi sa tension assignée en DC et son pouvoir de coupure, et comparez-les à la tension du circuit et au courant de court-circuit." }, // validé par Arthur le 19/10
+    "q-2-3-34": { texte: "Notez la technologie des modules proposée. Faites valider les entrées, puis lancez le calcul. Relevez la production annuelle et, si disponible, les productions mensuelles." }, // 2.3 Q35 : PV.TecSol n'affiche ni pose ni pertes (Arthur, 19/10)
     "q-3-2-20": { texte: "Calculez le courant d'un panneau avec la formule I = P ÷ U. Pour la suite, on utilisera 9,82 A.", aide: "I = 300 ÷ 30,5" }, // demandé par Arthur le 19/10
     "q-3-2-21": { texte: "Calculez le courant batterie avec la formule I = P ÷ (U × η).", aide: "I = 3 000 ÷ (48 × 0,90)" },
     "q-3-1-17": { texte: "Dans PVGIS, ouvrez le calcul « Hors réseau » et saisissez les valeurs du tableau ci-dessous. Lancez le calcul, puis notez sur votre feuille si vous avez gardé le profil par défaut." }, // reformulée à la demande d'Arthur le 19/10
