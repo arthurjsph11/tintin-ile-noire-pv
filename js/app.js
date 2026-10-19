@@ -76,6 +76,8 @@
       });
       sec.questions = sec.questions.filter(function (q) { return (RT.questionsEnTexte || []).indexOf(q.id) < 0; });
       sec.blocks = sec.blocks.filter(function (b) { return !(b.t === "q" && RT.questionsRetirees.indexOf(b.id) >= 0); });
+      // Lignes à trous des supports remplacées par un tableau à remplir (VIVANT.tableauxARemplir)
+      sec.blocks = sec.blocks.filter(function (b) { return !(b.t === "p" && (RT.paragraphesRetires || []).some(function (d) { return texte(b.s).indexOf(d) === 0; })); });
       sec.questions = sec.questions.filter(function (q) { return RT.questionsRetirees.indexOf(q.id) < 0; });
       sec.blocks.forEach(function (b) {
         if (b.t === "q" && RT.enonces[b.id]) { b.s = [[RT.enonces[b.id].texte, 0, ""]]; b.indice = RT.enonces[b.id].indice; }
@@ -278,7 +280,7 @@
       }
       if (b.t === "q") {
         // Le simulateur de CPI est placé AVANT la question qui l'utilise
-        if (b.id === "q-2-1-12") h += '<p class="sim-avant">Saisissez les données du tableau dans ce simulateur de CalcPV. Il fonctionne sans Internet et sert pour les questions suivantes, jusqu\'à la question 18.</p><div data-composant="calcpv"></div>';
+        if (b.id === "q-2-1-12") h += '<p class="sim-avant">Saisissez les données du tableau dans ce simulateur de CalcPV. Il fonctionne sans Internet et sert pour les questions suivantes, jusqu\'à la question 18. Vérifiez chaque ligne du tableau avant de lancer le calcul : énergie, période, inclinaison, tension.</p><div data-composant="calcpv"></div>';
         if (b.id === "q-2-1-17") h += '<p class="sim-avant">Refaites le calcul dans le <a href="#simulateur-calcpv">simulateur CalcPV</a> : changez seulement l\'énergie quotidienne.</p>';
         if (b.id === "q-T3-V3") h += '<p class="sim-avant">Utilisez ce simulateur de contrôleur permanent d\'isolement pour répondre à la question suivante.</p><div data-composant="cpi"></div>';
         h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + enonceAere(b) +
