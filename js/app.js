@@ -143,6 +143,7 @@
       ids.forEach(function (sid) {
         var s = seances[sid];
         s.sections.forEach(function (sec) {
+          if (estFiche(sec)) return;
           var kk = "sec-" + sec.id, aQ = sec.questions.length > 0;
           h += '<li><div class="ligne"><a class="nav-lien" href="#' + sec.id + '" data-route="' + sec.id + '"><span class="num-seance">' + (s.badge || s.num) + "</span>" + esc(sec.court || sec.titre) + "</a>" +
             (aQ ? '<button class="fleche petite" aria-label="Afficher les questions" aria-expanded="' + (ouverts[kk] ? "true" : "false") + '" data-ouvre="' + kk + '">' + FLECHE + "</button>" : "") + "</div>";
@@ -445,13 +446,14 @@
   }
   // Les corrections ne s'affichent que sur la page « Corrigé » de l'Espace prof, jamais dans le TP lui-même
   var modeCorrige = false;
+  function estFiche(x) { return x.kind === "ressource" && /Fiche technique/.test(x.titre); }
   function pageSeance(s) {
     var h = (modeCorrige ? '<p class="bandeau-corrige">Version corrigée : réservée aux enseignants · <a href="#corriges">Tous les corrigés</a></p>' : "") + '<span class="bandeau">' + (s.tp === "terre" ? "Mise à la terre · Activité " + s.num + " · " + esc(s.code) : "TP " + s.tp + " · Séance " + s.num) + '</span><h1 class="titre-page">' + esc(s.titre) + "</h1>";
     h += tableauAbreviations(s);
-    // Fiche technique accessible dès le début des exercices (elle reste aussi en fin de séance)
-    var fiche = s.sections.filter(function (x) { return x.kind === "ressource" && /Fiche technique/.test(x.titre); })[0];
+    // Fiche technique : seulement en haut de la séance, dans un volet (plus de copie en fin de séance, demandé par Arthur le 19/10)
+    var fiche = s.sections.filter(estFiche)[0];
     if (fiche) h += '<details class="fiche-rapide"><summary>📄 Fiche technique de référence : à garder sous les yeux pendant les exercices</summary><div>' + rendreBlocs(fiche.blocks, fiche, s) + "</div></details>";
-    s.sections.forEach(function (sec) { h += rendreSection(sec, s); });
+    s.sections.forEach(function (sec) { if (sec !== fiche) h += rendreSection(sec, s); });
     if (profOuvert() && modeCorrige && s.corrige.length) h += blocCorrige(s);
     // Séance précédente / suivante, sans passer des TP solaires au module « terre »
     var ids = Object.keys(seances).filter(function (k) { return (seances[k].tp === "terre") === (s.tp === "terre"); }), i = ids.indexOf(s.id);
