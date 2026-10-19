@@ -556,6 +556,29 @@
     });
     return h + pied();
   }
+  function pageGuideEditeur() {
+    var oui = [["✏️","Les textes","paragraphes, titres, bulles des personnages"],["❓","Les questions","numéro et énoncé"],["▦","Les tableaux","le texte de chaque case"],["✅","Les corrections","lignes du corrigé (Espace prof)"],["➕","Ajouter","une question ou un paragraphe"],["🗑️","Supprimer","une question ou un paragraphe"]];
+    var non = ["Les images et photos","Ajouter des lignes ou colonnes de tableau","Les jeux et les simulateurs","Le gras à l'intérieur d'une phrase (il disparaît si on la modifie)","Les tableaux et documents des corrigés","Les fichiers Word d'origine"];
+    var h = '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Mode d\'emploi de l\'éditeur</h1>';
+    h += '<p class="gd-chapo">L\'éditeur permet aux enseignants de corriger ou d\'adapter un TP eux-mêmes, sans savoir programmer. Voici ce qu\'il faut savoir avant de commencer.</p>';
+    h += '<section class="gd-bloc"><h2><span class="gd-num">1</span>Ce qu\'on peut modifier</h2><div class="gd-tuiles">';
+    oui.forEach(function (o) { h += '<div class="gd-tuile"><span class="gd-ico" aria-hidden="true">' + o[0] + '</span><b>' + o[1] + '</b><small>' + o[2] + '</small></div>'; });
+    h += '</div><details class="gd-non"><summary>Ce que l\'éditeur ne fait pas</summary><ul>';
+    non.forEach(function (n) { h += '<li>' + n + '</li>'; });
+    h += '</ul><p>Pour ces changements, il faut l\'équipe du projet.</p></details></section>';
+    h += '<section class="gd-bloc gd-alerte"><h2><span class="gd-num">2</span>Où vont les modifications ?</h2>';
+    h += '<p><b>« Enregistrer » change le TP sur cet ordinateur seulement</b>, dans ce navigateur. Rien n\'est envoyé ailleurs.</p>';
+    h += '<div class="gd-schema"><div class="gd-poste gd-modifie"><span class="gd-ico">💻</span><b>Cet ordinateur</b><small>Nouvelle version</small></div><div class="gd-autres">';
+    [["💻","Les autres ordinateurs"],["🔌","La clé USB"],["🌐","Le site en ligne"]].forEach(function (a) { h += '<div class="gd-poste"><span class="gd-ico">' + a[0] + '</span><b>' + a[1] + '</b><small>Ancienne version</small></div>'; });
+    h += '</div></div><p class="gd-petit">Attention aussi : vider l\'historique du navigateur efface les modifications enregistrées.</p></section>';
+    h += '<section class="gd-bloc"><h2><span class="gd-num">3</span>Modifier puis partager, en 4 étapes</h2><ol class="gd-etapes">';
+    [["Modifier","Choisissez le TP dans la liste, changez les textes, puis cliquez sur « Enregistrer et voir le résultat »."],["Vérifier","Ouvrez le TP (et son corrigé) pour relire le résultat."],["Télécharger","Cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : <code>contenu.js</code>, <code>terre.js</code>, <code>corriges.js</code>."],["Partager","Copiez-les dans le dossier <code>js</code> du site sur la clé USB, en remplaçant les anciens, puis recopiez la clé sur les autres ordinateurs. Pour le site en ligne, envoyez les 3 fichiers à la personne qui gère GitHub."]].forEach(function (e, i) { h += '<li><span class="gd-pas">' + (i + 1) + '</span><div><b>' + e[0] + '</b><p>' + e[1] + '</p></div></li>'; });
+    h += '</ol></section>';
+    h += '<section class="gd-bloc"><h2><span class="gd-num">4</span>Une erreur ? On revient en arrière</h2><p>Le bouton <b>« Revenir à la version d\'origine »</b> efface toutes les modifications de cet ordinateur. Le TP redevient celui livré par l\'équipe.</p></section>';
+    h += '<div class="gd-go"><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div>';
+    return h;
+  }
+
   function pageProf() {
     if (!profOuvert()) {
       return '<span class="bandeau">Espace prof</span><h1 class="titre-page">Espace enseignant</h1>' +
@@ -569,7 +592,7 @@
       '<p>Le panneau virtuel de la séance 1.2 est une simulation simplifiée : il remplace la maquette seulement si le lycée n\'en a pas.</p></section>';
     h += '<section class="case"><h2><span class="etiquette">À imprimer</span>Fiche de suivi des compétences</h2><p>Le site ne garde pas la progression des élèves. Imprimez une fiche par élève : elle regroupe les bilans de compétences de tous les TP, à cocher sur papier.</p><div><a class="btn jaune" href="#fiche-competences">Ouvrir la fiche</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Dossier annexe</span>Synthèse des compétences du module</h2><p>Document de l\'enseignant, repris tel quel : le parcours des 11 séances, les compétences C1 à C13 travaillées dans chaque activité, et les fiches détaillées par compétence.</p><div><a class="btn jaune" href="annexes/Synthese_competences_module_PV.pdf" target="_blank" rel="noopener">Ouvrir le PDF</a></div></section>';
-    h += '<section class="case"><h2><span class="etiquette">Outil</span>Modifier les TP</h2><p>Changer un texte, une question, un tableau ou une correction, ajouter ou supprimer une question.' + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Des modifications sont enregistrées dans ce navigateur.</b>" : "") + '</p><div><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div></section>';
+    h += '<section class="case"><h2><span class="etiquette">Outil</span>Modifier les TP</h2><p>Changer un texte, une question, un tableau ou une correction, ajouter ou supprimer une question.' + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Des modifications sont enregistrées dans ce navigateur.</b>" : "") + '</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#editeur-guide">Mode d\'emploi</a><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Annexe</span>Ressources et repères</h2><p>Dossiers, références et limites de chaque activité (TP 5 et mise à la terre). Retirés des pages élèves.</p><div><a class="btn" href="#ressources">Ouvrir</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Pour l\'équipe</span>À retravailler</h2><p>Ce qu\'on ne sait pas encore et ce qui reste à revoir, avec les questions à poser aux profs.</p><div><a class="btn jaune" href="#a-retravailler">Voir la liste</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Pour l\'équipe</span>Lexique des abréviations</h2><p>Vmp, Imp, Voc, Isc, kWc, MPPT… Toutes les abréviations des TP, expliquées simplement avec les valeurs de Tintin. Réservé à l\'équipe : les élèves découvrent les notions au fil des séances.</p><div><a class="btn jaune" href="#lexique">Ouvrir le lexique</a></div></section>';
@@ -600,7 +623,8 @@
     else if (r === "a-retravailler") html = profOuvert() ? pageARetravailler() : pageProf();
     else if (r === "prof") html = pageProf();
     else if (r === "ressources") html = profOuvert() ? pageRessources() : pageProf();
-    else if (r === "editeur") html = profOuvert() ? '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Modifier les TP</h1>' + bulle("Attention : « Enregistrer » ne modifie le TP que sur CET ordinateur et CE navigateur. Les autres PC, la clé USB et le site en ligne gardent l'ancienne version.") + '<ol class="ed-aide"><li>Modifiez les textes, puis cliquez sur « Enregistrer et voir le résultat » pour vérifier.</li><li>Pour que tout le monde ait la nouvelle version : cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : contenu.js, terre.js et corriges.js.</li><li>Copiez ces 3 fichiers dans le dossier <b>js</b> du site (clé USB ou dossier partagé), en remplaçant les anciens. Recopiez ensuite la clé sur les autres ordinateurs.</li><li>Pour le site en ligne, les 3 fichiers doivent être déposés sur GitHub par une personne qui a accès au dépôt.</li></ol>' + '<div data-composant="editeur"></div>' : pageProf();
+    else if (r === "editeur-guide") html = profOuvert() ? pageGuideEditeur() : pageProf();
+    else if (r === "editeur") html = profOuvert() ? '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Modifier les TP</h1><p><a href="#editeur-guide">Lire le mode d\'emploi illustré</a></p>' + bulle("Attention : « Enregistrer » ne modifie le TP que sur CET ordinateur et CE navigateur. Les autres PC, la clé USB et le site en ligne gardent l'ancienne version.") + '<ol class="ed-aide"><li>Modifiez les textes, puis cliquez sur « Enregistrer et voir le résultat » pour vérifier.</li><li>Pour que tout le monde ait la nouvelle version : cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : contenu.js, terre.js et corriges.js.</li><li>Copiez ces 3 fichiers dans le dossier <b>js</b> du site (clé USB ou dossier partagé), en remplaçant les anciens. Recopiez ensuite la clé sur les autres ordinateurs.</li><li>Pour le site en ligne, les 3 fichiers doivent être déposés sur GitHub par une personne qui a accès au dépôt.</li></ol>' + '<div data-composant="editeur"></div>' : pageProf();
     else if (r === "fiche-competences") html = profOuvert() ? pageFiche() : pageProf();
     else if (r === "jeux" || r.indexOf("jeu-") === 0) html = window.JEUX.page(r);
     else if (r.indexOf("seance-") === 0 && seances[r.slice(7)]) html = pageSeance(seances[r.slice(7)]);
@@ -625,7 +649,7 @@
       var el = document.getElementById(cible);
       if (el) { el.scrollIntoView({ block: "start" }); if (el.classList.contains("question")) { el.classList.remove("surligne"); void el.offsetWidth; el.classList.add("surligne"); } }
     } else window.scrollTo(0, 0);
-    if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur") && !profOuvert())) brancherProf();
+    if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide") && !profOuvert())) brancherProf();
     document.title = "Tintin sur l'île Noire PV";
   }
   function brancherProf() {
