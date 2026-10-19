@@ -87,7 +87,7 @@
       sec.blocks = sec.blocks.filter(function (b) { return !(b.t === "p" && (RT.paragraphesRetires || []).some(function (d) { return texte(b.s).indexOf(d) === 0; })); });
       sec.questions = sec.questions.filter(function (q) { return RT.questionsRetirees.indexOf(q.id) < 0; });
       sec.blocks.forEach(function (b) {
-        if (b.t === "q" && RT.enonces[b.id]) { b.s = [[RT.enonces[b.id].texte, 0, ""]]; b.indice = RT.enonces[b.id].indice; b.cases = RT.enonces[b.id].cases; }
+        if (b.t === "q" && RT.enonces[b.id]) { b.s = [[RT.enonces[b.id].texte, 0, ""]]; b.indice = RT.enonces[b.id].indice; b.cases = RT.enonces[b.id].cases; if (RT.enonces[b.id].aide) b.aide = RT.enonces[b.id].aide; }
         if (b.t === "q") {
           var m = /^([\s\S]*?)\s*Aide\s*:\s*([\s\S]+)$/.exec(texte(b.s));
           if (m) { b.s = [[m[1], 0, b.s[0][2] || ""]]; b.aide = m[2]; }
