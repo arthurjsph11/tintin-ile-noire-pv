@@ -69,6 +69,15 @@
           if (b.t === "table") b.rows.forEach(function (row) { row.forEach(function (c) { if (Array.isArray(c)) c.forEach(function (par) { if (Array.isArray(par)) rep(par); }); }); });
         });
       });
+      // Colonnes ajoutées à un tableau à compléter (VIVANT.retouches.colonnesAjoutees, clé = question juste avant le tableau)
+      sec.blocks.forEach(function (b, i) {
+        var col = b.t === "q" && (RT.colonnesAjoutees || {})[b.id], tb = sec.blocks[i + 1];
+        if (!col || !tb || tb.t !== "table" || tb.colonneAjoutee) return;
+        var k = tb.rows[0].findIndex(function (c) { return Array.isArray(c) && c.map(function (par) { return Array.isArray(par) ? texte(par) : ""; }).join(" ").trim().indexOf(col.apres) === 0; });
+        if (k < 0) return;
+        tb.rows.forEach(function (row, r) { row.splice(k + 1, 0, r ? [] : [[[col.titre, 1, ""]]]); });
+        tb.colonneAjoutee = true;
+      });
       // Lignes de tableau retirées (VIVANT.retouches.lignesRetirees)
       sec.blocks.forEach(function (b) {
         if (b.t === "table") b.rows = b.rows.filter(function (row) {
@@ -468,6 +477,7 @@
     var h = '<div class="correction"><div class="corr-titre">Question ' + esc(num) + " – Correction</div>" +
       (c.lignes || []).map(ligne).join("");
     if (c.document) h += documentPro(c.document);
+    if (c.schema) h += '<figure class="corr-schema">' + c.schema + "</figure>";
     if (c.tableau) h += '<div class="tableau"><table>' + c.tableau.map(function (r) { return "<tr>" + r.map(function (x) { return "<td>" + esc(x) + "</td>"; }).join("") + "</tr>"; }).join("") + "</table></div>";
     return h + (c.apres || []).map(ligne).join("") + "</div>";
   }

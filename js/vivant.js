@@ -220,6 +220,8 @@ window.VIVANT = {
    Le contenu des enseignants reste dans contenu.js ; ces retouches ne changent que ce que le site affiche. */
 window.VIVANT.retouches = {
   // Questions retirées du site
+  // Colonnes ajoutées aux tableaux à compléter (question juste avant le tableau)
+  colonnesAjoutees: { "q-3-2-23": { apres: "ΔU", titre: "R max Ω" } }, // 3.2 Q23 : demandé par Arthur le 19/10
   // Lignes de tableau retirées (texte de la première cellule)
   lignesRetirees: ["Pertes et pose"], // 2.3 Q35 : PV.TecSol n'affiche ni pertes ni pose, retirée par Arthur le 19/10
   // Lignes à trous remplacées par un tableau à remplir (début du paragraphe)
