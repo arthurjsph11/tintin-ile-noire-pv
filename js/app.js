@@ -570,10 +570,10 @@
     h += '<div class="gd-schema"><div class="gd-poste gd-modifie"><span class="gd-ico">💻</span><b>Cet ordinateur</b><small>Nouvelle version</small></div><div class="gd-autres">';
     [["💻","Les autres ordinateurs"],["🔌","La clé USB"],["🌐","Le site en ligne"]].forEach(function (a) { h += '<div class="gd-poste"><span class="gd-ico">' + a[0] + '</span><b>' + a[1] + '</b><small>Ancienne version</small></div>'; });
     h += '</div></div><p class="gd-petit">Attention aussi : vider l\'historique du navigateur efface les modifications enregistrées.</p></section>';
-    h += '<section class="gd-bloc"><h2><span class="gd-num">3</span>Modifier puis partager, en 4 étapes</h2><ol class="gd-etapes">';
-    [["Modifier","Choisissez le TP dans la liste, changez les textes, puis cliquez sur « Enregistrer et voir le résultat »."],["Vérifier","Ouvrez le TP (et son corrigé) pour relire le résultat."],["Télécharger","Cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : <code>contenu.js</code>, <code>terre.js</code>, <code>corriges.js</code>."],["Partager","Copiez-les dans le dossier <code>js</code> du site sur la clé USB, en remplaçant les anciens, puis recopiez la clé sur les autres ordinateurs. Pour le site en ligne, envoyez les 3 fichiers à la personne qui gère GitHub."]].forEach(function (e, i) { h += '<li><span class="gd-pas">' + (i + 1) + '</span><div><b>' + e[0] + '</b><p>' + e[1] + '</p></div></li>'; });
+    h += '<section class="gd-bloc"><h2><span class="gd-num">3</span>Modifier puis enregistrer une version, en 4 étapes</h2><ol class="gd-etapes">';
+    [["Modifier","Choisissez le TP dans la liste, changez les textes, puis cliquez sur « Enregistrer et voir le résultat »."],["Vérifier","Ouvrez le TP (et son corrigé) pour relire le résultat."],["Enregistrer la version","Indiquez votre nom (et, si vous voulez, la raison du changement), puis cliquez sur « Enregistrer la version ». Un fichier <code>Version_N_date.zip</code> est téléchargé."],["Mettre la clé à jour","Décompressez ce zip dans le dossier du site sur la clé USB, en remplaçant les fichiers, puis rangez le zip dans le dossier <code>versions</code> de la clé. Recopiez la clé sur les autres ordinateurs. Pour le site en ligne, envoyez le zip à la personne qui gère GitHub."]].forEach(function (e, i) { h += '<li><span class="gd-pas">' + (i + 1) + '</span><div><b>' + e[0] + '</b><p>' + e[1] + '</p></div></li>'; });
     h += '</ol></section>';
-    h += '<section class="gd-bloc"><h2><span class="gd-num">4</span>Une erreur ? On revient en arrière</h2><p>Le bouton <b>« Revenir à la version d\'origine »</b> efface toutes les modifications de cet ordinateur. Le TP redevient celui livré par l\'équipe.</p></section>';
+    h += '<section class="gd-bloc"><h2><span class="gd-num">4</span>Une erreur ? On revient en arrière</h2><p>Chaque version est numérotée et gardée dans son fichier zip. La page <a href="#versions"><b>Suivi des versions</b></a> liste toutes les modifications (avant / après, qui, quand) et donne un journal à ouvrir dans Word ou LibreOffice.</p><p>Pour revenir en arrière, décompressez le zip d\'une version précédente dans le dossier du site. La <b>version 0</b> (<code>versions/Version_0_origine.zip</code>) est toujours là : on peut repartir de la version de base à tout moment.</p><p>Le bouton « Annuler les modifications de cet ordinateur » efface seulement ce qui n\'a pas encore été enregistré dans une version.</p></section>';
     h += '<section class="gd-bloc"><h2><span class="gd-num">5</span>Le mot de passe a circulé ?</h2><p>Dans l\'Espace prof, la page <b>« Changer le mot de passe »</b> demande l\'ancien puis le nouveau. Il change tout de suite sur cet ordinateur, et un fichier <code>acces.js</code> est téléchargé.</p><p>Copiez <code>acces.js</code> dans le dossier <code>js</code> de la clé USB et sur GitHub : le nouveau mot de passe marche alors partout. Gardez une copie de l\'ancien fichier <code>acces.js</code> en lieu sûr : si le nouveau mot de passe est oublié, il suffit de le remettre.</p></section>';
     h += '<div class="gd-go"><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div>';
     return h;
@@ -595,6 +595,12 @@
       h += carte("TP à part", T.titre, l);
     }
     return h + pied();
+  }
+  function pageVersions() {
+    return '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Suivi des versions</h1>' +
+      bulle("Chaque version enregistrée avec l'éditeur est listée ici, avec ses modifications. La version 0 est la version de base livrée par l'équipe : on peut toujours y revenir.") +
+      '<section class="case"><div data-composant="versions"></div></section>' +
+      '<section class="case"><h2><span class="etiquette">En cas de problème</span>Revenir à une version précédente</h2><ol class="ed-aide"><li>Ouvrez le dossier <b>versions</b> de la clé USB.</li><li>Décompressez le zip de la version voulue dans le dossier du site, en remplaçant les fichiers. Pour la version de base : <b>Version_0_origine.zip</b>.</li><li>Sur chaque ordinateur, cliquez sur « Annuler les modifications de cet ordinateur » dans l\'éditeur s\'il reste des modifications enregistrées.</li></ol></section>' + pied();
   }
   function pageMotDePasse() {
     return '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Changer le mot de passe</h1>' +
@@ -623,6 +629,7 @@
       tuile("Annexe", "Ressources et repères", "Dossiers, références et limites (TP 5 et mise à la terre).", "#ressources"));
     h += groupe("Outils", "",
       '<div class="prof-tuile"><span class="etiquette">Outil</span><b>Modifier les TP</b><small>Textes, questions, tableaux, corrections.' + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Modifications enregistrées ici.</b>" : "") + '</small><span class="prof-liens"><a class="btn" href="#editeur">Ouvrir l\'éditeur</a><a class="btn leger" href="#editeur-guide">Mode d\'emploi</a></span></div>' +
+      tuile("Outil", "Suivi des versions", "Version actuelle : " + (window.VERSIONS ? window.VERSIONS.numero : 0) + ". Toutes les modifications, avec un journal Word / LibreOffice.", "#versions") +
       tuile("Outil", "Changer le mot de passe", "Si le mot de passe a circulé chez les élèves.", "#mot-de-passe"));
     h += groupe("Pour l'équipe", "",
       tuile("Équipe", "À retravailler", "Questions à poser aux profs et points à revoir.", "#a-retravailler") +
@@ -646,9 +653,10 @@
     else if (r === "prof") html = pageProf();
     else if (r === "ressources") html = profOuvert() ? pageRessources() : pageProf();
     else if (r === "corriges") html = profOuvert() ? pageCorriges() : pageProf();
+    else if (r === "versions") html = profOuvert() ? pageVersions() : pageProf();
     else if (r === "mot-de-passe") html = profOuvert() ? pageMotDePasse() : pageProf();
     else if (r === "editeur-guide") html = profOuvert() ? pageGuideEditeur() : pageProf();
-    else if (r === "editeur") html = profOuvert() ? '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Modifier les TP</h1><p><a href="#editeur-guide">Lire le mode d\'emploi illustré</a></p>' + bulle("Attention : « Enregistrer » ne modifie le TP que sur CET ordinateur et CE navigateur. Les autres PC, la clé USB et le site en ligne gardent l'ancienne version.") + '<ol class="ed-aide"><li>Modifiez les textes, puis cliquez sur « Enregistrer et voir le résultat » pour vérifier.</li><li>Pour que tout le monde ait la nouvelle version : cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : contenu.js, terre.js et corriges.js.</li><li>Copiez ces 3 fichiers dans le dossier <b>js</b> du site (clé USB ou dossier partagé), en remplaçant les anciens. Recopiez ensuite la clé sur les autres ordinateurs.</li><li>Pour le site en ligne, les 3 fichiers doivent être déposés sur GitHub par une personne qui a accès au dépôt.</li></ol>' + '<div data-composant="editeur"></div>' : pageProf();
+    else if (r === "editeur") html = profOuvert() ? '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Modifier les TP</h1><p><a href="#editeur-guide">Lire le mode d\'emploi illustré</a></p>' + bulle("« Enregistrer et voir le résultat » ne change le TP que sur CET ordinateur. Pour que la clé USB ait la nouvelle version, indiquez votre nom puis cliquez sur « Enregistrer la version » : un fichier zip est téléchargé.") + '<ol class="ed-aide"><li>Modifiez les textes, puis cliquez sur « Enregistrer et voir le résultat » pour vérifier.</li><li>Quand tout est bon, indiquez votre nom et cliquez sur « Enregistrer la version ». Un fichier <b>Version_N_date.zip</b> est téléchargé.</li><li>Décompressez ce zip dans le dossier du site sur la clé USB (remplacez les fichiers), puis rangez le zip dans le dossier <b>versions</b> de la clé.</li><li>Chaque version et ses modifications sont listées dans <a href="#versions">Suivi des versions</a>.</li></ol>' + '<div data-composant="editeur"></div>' : pageProf();
     else if (r === "fiche-competences") html = profOuvert() ? pageFiche() : pageProf();
     else if (r === "jeux" || r.indexOf("jeu-") === 0) html = window.JEUX.page(r);
     else if (r.indexOf("seance-") === 0 && seances[r.slice(7)]) html = pageSeance(seances[r.slice(7)]);
@@ -673,7 +681,7 @@
       var el = document.getElementById(cible);
       if (el) { el.scrollIntoView({ block: "start" }); if (el.classList.contains("question")) { el.classList.remove("surligne"); void el.offsetWidth; el.classList.add("surligne"); } }
     } else window.scrollTo(0, 0);
-    if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide" || r === "corriges" || r === "mot-de-passe") && !profOuvert())) brancherProf();
+    if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide" || r === "corriges" || r === "mot-de-passe" || r === "versions") && !profOuvert())) brancherProf();
     document.title = "Tintin sur l'île Noire PV";
   }
   function brancherProf() {

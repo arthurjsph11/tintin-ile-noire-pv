@@ -563,3 +563,27 @@ p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
 .liste-corriges .num-seance{background:var(--vert-prof)}
 .prof-liens{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .prof-liens .btn{font-size:14px;padding:6px 12px}
+
+/* ---------- Versions ---------- */
+.ed-version{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;padding:12px 14px;border:2px dashed var(--encre);border-radius:4px;background:var(--papier);margin-top:10px}
+.ed-version>b{flex-basis:100%}
+.ed-version label{display:grid;gap:3px;font-size:14px;font-weight:700;flex:1 1 200px;min-width:0}
+.ed-version input{font:inherit;padding:6px 8px;border:2px solid var(--encre);border-radius:4px;background:var(--blanc)}
+.vs-actuelle{display:grid;gap:4px;justify-items:start;padding:16px 18px;border-left:8px solid var(--bleu);background:var(--bleu-clair)}
+.vs-actuelle b{font-family:var(--titre);font-size:24px}
+.vs-actuelle small{color:var(--gris)}
+.vs-actuelle .btn{margin-top:8px}
+.vs-attente{margin:0;padding:10px 14px;border:2px solid var(--rouge);background:#fff6f4;border-radius:4px}
+.vs-liste{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.vs-liste details{border:2px solid var(--gris-clair);border-radius:4px;background:var(--blanc)}
+.vs-liste summary{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 12px;cursor:pointer}
+.vs-liste summary small{color:var(--gris)}
+.vs-num{font-family:var(--titre);background:var(--encre);color:#fff;border-radius:3px;padding:2px 8px}
+.vs-nb{font-size:13px;font-weight:700;color:var(--gris);white-space:nowrap}
+.vs-changements{margin:0;padding:4px 14px 14px 34px;display:grid;gap:10px}
+.vs-changements li{min-width:0;overflow-wrap:anywhere}
+.vs-type{font-size:12px;font-weight:700;padding:1px 6px;border-radius:3px;color:#fff}
+.vs-mo{background:var(--bleu)}.vs-aj{background:var(--vert-prof)}.vs-su{background:var(--rouge)}
+.vs-avant{color:var(--rouge);font-size:14.5px}
+.vs-apres{color:var(--vert-prof);font-size:14.5px}
+.vs-vide{margin:0;padding:0 14px 12px}
