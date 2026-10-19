@@ -220,7 +220,7 @@ window.VIVANT = {
    Le contenu des enseignants reste dans contenu.js ; ces retouches ne changent que ce que le site affiche. */
 window.VIVANT.retouches = {
   // Questions retirées du site
-  questionsRetirees: ["q-1-1-V1A-1"], // V1A.1 : vocabulaire anglais, retiré à la demande de l'équipe
+  questionsRetirees: ["q-1-1-V1A-1", "q-2-1-11"], // V1A.1 : vocabulaire anglais ; 2.1 Q11 : recopier les coordonnées (retirée par Arthur le 19/10)
   // Images des supports remises dans le bon sens, avec une légende
   images: {
     "34adb4dd19.jpeg": { src: "34adb4dd19-droit.jpg", alt: "Armoire technique d'une installation photovoltaïque",
