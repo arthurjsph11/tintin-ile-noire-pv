@@ -69,6 +69,13 @@
           if (b.t === "table") b.rows.forEach(function (row) { row.forEach(function (c) { if (Array.isArray(c)) c.forEach(function (par) { if (Array.isArray(par)) rep(par); }); }); });
         });
       });
+      // Lignes de tableau retirées (VIVANT.retouches.lignesRetirees)
+      sec.blocks.forEach(function (b) {
+        if (b.t === "table") b.rows = b.rows.filter(function (row) {
+          var c = Array.isArray(row[0]) ? row[0].map(function (par) { return Array.isArray(par) ? texte(par) : ""; }).join(" ").trim() : "";
+          return (RT.lignesRetirees || []).indexOf(c) < 0;
+        });
+      });
       // Lignes lues à tort comme des questions (ex. étape 1 d'une méthode) : affichées comme du texte, avec leur numéro
       sec.blocks = sec.blocks.map(function (b) {
         if (b.t === "q" && (RT.questionsEnTexte || []).indexOf(b.id) >= 0) return { t: "p", s: [[b.num + ". ", 0, ""]].concat(b.s) };
