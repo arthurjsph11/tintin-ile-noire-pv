@@ -111,6 +111,32 @@
       if (code) sec.code = code[1];
       if (sec.kind === "objectifs") sec.blocks = sec.blocks.filter(function (b) { return !(b.t === "img" && V.bdRetireesDesObjectifs.indexOf(b.src) >= 0); });
     });
+    // Séance réorganisée dans l'ordre chronologique : les exercices V (violets) sont placés au moment où on les fait (VIVANT.retouches.chronologie)
+    var chrono = (RT.chronologie || {})[s.id];
+    if (chrono) {
+      var principale = s.sections.filter(function (x) { return x.id === chrono.section; })[0];
+      var fusion = s.sections.filter(function (x) { return chrono.fusion.indexOf(x.id) >= 0; });
+      if (principale && fusion.length === chrono.fusion.length) {
+        var unites = {}, intros = [], qs = {};
+        [principale].concat(fusion).forEach(function (x) {
+          var cle = null;
+          x.blocks.forEach(function (b) {
+            if (b.t === "q") { cle = b.id; unites[cle] = [b]; }
+            else if (cle) unites[cle].push(b);
+            else intros.push(b);
+          });
+          x.questions.forEach(function (q) { qs[q.id] = q; });
+        });
+        var nb = [{ t: "p", s: [[chrono.intro, 0, ""]] }].concat(intros), nq = [];
+        chrono.etapes.forEach(function (e) {
+          nb.push({ t: "h3", text: e[0] });
+          e[1].forEach(function (id) { if (unites[id]) { nb = nb.concat(unites[id]); if (qs[id]) nq.push(qs[id]); delete unites[id]; } });
+        });
+        Object.keys(unites).forEach(function (id) { nb = nb.concat(unites[id]); if (qs[id]) nq.push(qs[id]); });
+        principale.blocks = nb; principale.questions = nq; principale.court = chrono.titre;
+        s.sections = s.sections.filter(function (x) { return chrono.fusion.indexOf(x.id) < 0; });
+      }
+    }
     if (V.bd[s.id]) s.sections.unshift({ id: "s" + s.id + "-bd", titre: V.bd[s.id].titre, court: V.bd[s.id].titre.replace(/^La BD : /, "BD : "), kind: "bd", blocks: [], questions: [] });
     if (s.id === "1-1") {
       var iObj = s.sections.findIndex(function (x) { return x.kind === "objectifs"; });

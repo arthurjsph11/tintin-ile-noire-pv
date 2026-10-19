@@ -222,6 +222,17 @@ window.VIVANT.retouches = {
   // Questions retirées du site
   // Colonnes ajoutées aux tableaux à compléter (question juste avant le tableau)
   colonnesAjoutees: { "q-3-2-23": { apres: "ΔU", titre: "R max Ω" } }, // 3.2 Q23 : demandé par Arthur le 19/10
+  // Séances affichées dans l'ordre chronologique (demandé par Arthur le 19/10) : la partie V3C est fondue dans le montage
+  chronologie: {
+    "3-3": { section: "s3-3-1", fusion: ["s3-3-3"], titre: "Réaliser, contrôler et réceptionner la maquette",
+      intro: "Suivez les étapes dans l'ordre, de haut en bas. Les exercices violets (V3C) se font au moment où ils apparaissent.",
+      etapes: [
+        ["Étape 1 · Avant de câbler", ["q-3-3-31", "q-3-3-32", "q-3-3-V3C-1"]],
+        ["Étape 2 · Câbler", ["q-3-3-33", "q-3-3-34"]],
+        ["Étape 3 · Contrôler et mettre sous tension", ["q-3-3-35"]],
+        ["Étape 4 · Essayer et livrer à Tournesol", ["q-3-3-V3C-2", "q-3-3-V3C-3", "q-3-3-V3C-4"]]
+      ] }
+  },
   // Lignes de tableau retirées (texte de la première cellule)
   lignesRetirees: ["Pertes et pose"], // 2.3 Q35 : PV.TecSol n'affiche ni pertes ni pose, retirée par Arthur le 19/10
   // Lignes à trous remplacées par un tableau à remplir (début du paragraphe)
