@@ -83,6 +83,15 @@
         var noms = b.t === "q" && (RT.entetesTableau || {})[b.id], tb = sec.blocks[i + 1];
         if (noms && tb && tb.t === "table") noms.forEach(function (n, k) { if (tb.rows[0][k]) tb.rows[0][k] = [[[n, 1, ""]]]; });
       });
+      // Phrases mises en gras, dans un paragraphe à part (VIVANT.retouches.paragraphesGras : début de la phrase)
+      sec.blocks = sec.blocks.reduce(function (acc, b) {
+        var t = b.t === "p" ? texte(b.s) : "", d = (RT.paragraphesGras || []).filter(function (x) { return t.indexOf(x) >= 0; })[0];
+        if (!d) { acc.push(b); return acc; }
+        var i = t.indexOf(d), st = b.s[0][2] || "";
+        if (i > 0) acc.push({ t: "p", s: [[t.slice(0, i).trim(), 0, st]] });
+        acc.push({ t: "p", s: [[t.slice(i), 1, ""]] }); // en noir : le violet se lit mal sur le fond rose
+        return acc;
+      }, []);
       // Lignes de tableau retirées (VIVANT.retouches.lignesRetirees)
       sec.blocks.forEach(function (b) {
         if (b.t === "table") b.rows = b.rows.filter(function (row) {
