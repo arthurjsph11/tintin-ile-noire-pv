@@ -240,6 +240,16 @@
           h += "<p>" + esc(t.split("\nObservateur")[0]) + '</p><p class="note-feuille">Sur la feuille, l\'observateur écrit son nom et coche « conseil compris » ou « à reprendre ».</p>';
           continue;
         }
+        // Lignes à trous des supports (« Nom ______ ») : encadré « À compléter sur votre feuille »
+        if (/_{4,}/.test(t)) {
+          h += '<div class="a-completer"><span class="a-completer-titre"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12l8-8 2 2-8 8H2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>À compléter sur votre feuille</span>' + t.split("\n").map(function (l) {
+            if (!/_{4,}/.test(l)) return '<p class="a-completer-note">' + esc(l) + "</p>";
+            return '<p class="a-completer-ligne">' + l.split(/\s{3,}/).map(function (champ) {
+              return '<span class="champ">' + esc(champ).replace(/_{4,}/g, function (u) { return '<span class="trou" style="width:' + Math.min(14, Math.max(4, u.length * 0.35)).toFixed(1) + 'em"></span>'; }) + "</span>";
+            }).join("") + "</p>";
+          }).join("") + "</div>";
+          continue;
+        }
         // Cas A / B / C sur plusieurs lignes : liste avec le nom du cas en gras
         if (/^Cas [A-Z] — [^\n]*\nCas [A-Z] — /.test(t)) {
           h += '<ul class="aere">' + t.split("\n").map(function (l) {

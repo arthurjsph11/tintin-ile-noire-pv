@@ -643,3 +643,11 @@ h1.titre-page{overflow-wrap:break-word;min-width:0}
 .cpv-ouvrir{display:inline-flex;gap:8px;align-items:center;background:#f7a21b;color:var(--encre)}
 .cpv-astuce{display:block;margin-top:6px;font-size:13.5px;color:var(--gris)}
 @media print{.cpv-onglet,.cpv-tiroir{display:none!important}}
+/* Lignes à trous : encadré « À compléter sur votre feuille » */
+.a-completer{display:grid;gap:10px;padding:14px 18px 16px;border:2px dashed var(--bleu);border-radius:6px;background:var(--bleu-clair)}
+.a-completer-titre{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--bleu)}
+.a-completer-titre svg{width:15px;height:15px}
+.a-completer-ligne{margin:0;display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline}
+.a-completer .champ{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:6px;font-weight:700;min-width:0}
+.a-completer .trou{display:inline-block;max-width:100%;height:1.2em;border-bottom:2px dotted var(--encre);background:var(--blanc);border-radius:3px 3px 0 0;vertical-align:baseline}
+.a-completer-note{margin:0;font-size:14.5px;color:var(--gris);font-style:italic}

@@ -221,7 +221,7 @@ window.VIVANT = {
 window.VIVANT.retouches = {
   // Questions retirées du site
   // Lignes à trous remplacées par un tableau à remplir (début du paragraphe)
-  paragraphesRetires: ["Technologie ______"],
+  paragraphesRetires: [],
   questionsRetirees: ["q-1-1-V1A-1", "q-2-1-11"], // V1A.1 : vocabulaire anglais ; 2.1 Q11 : recopier les coordonnées (retirée par Arthur le 19/10)
   // Images des supports remises dans le bon sens, avec une légende
   images: {
@@ -364,7 +364,6 @@ window.VIVANT.dialoguesAvant = {
 
 /* Tableaux à recopier et compléter sur la feuille, affichés sous une question (clé : id de la question) */
 window.VIVANT.tableauxARemplir = {
-  "q-2-1-14": [["Réglage du simulateur", "Valeur retenue"], ["Technologie de batterie", "Décharge admise (%)", "Rendement batterie (%)", "Autres pertes (%)", "Modèle de panneau"]],
   "q-T3-8": [["Rubrique", "Votre message de maintenance"], ["Alarme", "Départ suspect", "Risque si le défaut persiste", "Action demandée"]]
 };
 
