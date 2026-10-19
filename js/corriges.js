@@ -145,8 +145,10 @@ window.CORRIGES = {
   "2-1|17": ["Méthode : refaire le calcul de la question 10 avec exactement les mêmes réglages, en changeant seulement l'énergie quotidienne : 11 200 Wh/j au lieu de 12 100 Wh/j.",
     "Résultats du simulateur : premier essai 3 176 Wc, 12 panneaux, 1 801 Ah ; besoin réduit 2 940 Wc, 10 panneaux, 1 667 Ah (sous 48 V).",
     "Ordre de grandeur : le besoin baisse de 900 ÷ 12 100 × 100 ≈ 7,4 %, donc la puissance et la batterie baissent d'environ 7 %."],
-  "2-1|18": ["Réponse : la puissance proposée (Wc) et la capacité de la batterie (Ah) diminuent. Ici, on passe de 12 à 10 panneaux.",
-    "Oui, un arrondi peut garder le même nombre de panneaux quand l'économie est petite. Exemple : 3 176 Wc et 3 050 Wc donnent tous les deux 12 panneaux."],
+  "2-1|18": ["Réponse : la puissance du champ (3 176 → 2 940 Wc) et la batterie (1 801 → 1 667 Ah) ont diminué.",
+    "Nombre de panneaux : il passe de 12 à 10.",
+    "Explication : le besoin est plus petit, donc il faut moins de puissance. 2 940 ÷ 300 = 9,8, donc 10 panneaux (nombre pair, car les panneaux vont par 2 en série).",
+    "À savoir : avec une petite économie, l'arrondi peut garder le même nombre de panneaux. Exemple : 3 176 Wc et 3 050 Wc donnent tous les deux 12 panneaux."],
   "2-1|19": ["Réponse attendue : avant d'acheter, réduire d'abord ses besoins (c'est moins cher qu'un panneau ou une batterie de plus), puis faire vérifier les hypothèses (lieu, période, autonomie) et le matériel réel avec les notices (activité 3)."],
 
   /* ================= TP 2 · Séance 2.2 ================= */
