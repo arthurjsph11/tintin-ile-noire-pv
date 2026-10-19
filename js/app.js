@@ -711,14 +711,14 @@
     document.title = "Tintin sur l'île Noire PV";
     majLexique(r);
   }
-  /* Bouton bleu « Abréviations » (comme le bouton Menu) : le lexique dans un tiroir, partout dans l'espace prof et les TP en mode prof */
+  /* Bouton « Abréviations » : le lexique dans un tiroir, seulement sur les pages de corrigé des TP (espace prof) */
   var lexTiroir = null, lexOnglet = null;
   function lexFermer() { lexTiroir.hidden = true; document.body.classList.remove("lex-ouvert"); lexOnglet.focus(); }
   function majLexique(r) {
     if (!lexTiroir) {
       lexOnglet = document.createElement("button");
-      lexOnglet.type = "button"; lexOnglet.className = "btn lex-onglet"; lexOnglet.hidden = true;
-      lexOnglet.innerHTML = '<span aria-hidden="true">🔤</span> Abréviations';
+      lexOnglet.type = "button"; lexOnglet.className = "lex-onglet"; lexOnglet.hidden = true;
+      lexOnglet.innerHTML = '<span class="lex-pastille" aria-hidden="true">Ab</span><span class="lex-texte"><b>Abréviations</b><small>Ep, k, Voc, MPPT…</small></span>';
       lexTiroir = document.createElement("aside");
       lexTiroir.className = "cpv-tiroir lex-tiroir"; lexTiroir.hidden = true; lexTiroir.setAttribute("aria-label", "Lexique des abréviations");
       lexTiroir.innerHTML = '<div class="cpv-tiroir-haut"><b>Lexique des abréviations</b><button type="button" class="btn leger">Fermer ✕</button></div><div class="cpv-tiroir-corps">' + lexiqueCorps("lex-cherche-tiroir") + "</div>";
@@ -728,9 +728,11 @@
       document.body.appendChild(lexTiroir); document.body.appendChild(lexOnglet);
       monterLexique(lexTiroir);
     }
-    var voir = profOuvert() && r !== "lexique";
+    var voir = profOuvert() && r.indexOf("corrige-") === 0;
     lexOnglet.hidden = !voir;
     if (!voir && !lexTiroir.hidden) lexFermer();
+    // Au-dessus de l'onglet CalcPV dans les corrigés du TP 2
+    lexOnglet.classList.toggle("lex-haut", /^corrige-2-/.test(r));
   }
   function brancherProf() {
     var f = $("#prof-form"); if (!f) return;

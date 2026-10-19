@@ -645,8 +645,15 @@ h1.titre-page{overflow-wrap:break-word;min-width:0}
 .cpv-tiroir-corps .cpv{margin:0}
 .cpv-ouvrir{display:inline-flex;gap:8px;align-items:center;background:#f7a21b;color:var(--encre)}
 .cpv-astuce{display:block;margin-top:6px;font-size:13.5px;color:var(--gris)}
-.btn.lex-onglet{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:16px;z-index:40}
-.btn.lex-onglet[hidden]{display:none}
+.lex-onglet{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;font:inherit;text-align:left;padding:6px 16px 6px 6px;border:3px solid var(--encre);border-radius:999px;background:var(--blanc);color:var(--encre);box-shadow:0 4px 0 var(--encre);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.lex-onglet:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--encre)}
+.lex-onglet:active{transform:translateY(2px);box-shadow:0 2px 0 var(--encre)}
+.lex-onglet[hidden]{display:none}
+.lex-onglet.lex-haut{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+.lex-pastille{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--jaune);border:2px solid var(--encre);font-family:var(--mono);font-weight:800;font-size:16px}
+.lex-texte{display:grid;line-height:1.15}
+.lex-texte b{font-size:16px}
+.lex-texte small{font-size:12px;opacity:.7;font-family:var(--mono)}
 .lex-ouvert .lex-onglet,.cpv-ouvert .lex-onglet{display:none}
 .lex-tiroir .lex-groupe{margin-top:12px}
 @media print{.cpv-onglet,.cpv-tiroir,.lex-onglet{display:none!important}}
