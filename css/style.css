@@ -485,6 +485,7 @@ ul.aere li{margin:.3em 0;line-height:1.5}
 ul.aere ul{margin:.2em 0 .2em;padding-left:1.2em}
 .corr-schema{margin:10px 0;overflow-x:auto;border:1.5px solid #d8d0bd;background:#fff}
 .corr-schema svg{display:block;width:100%;min-width:640px;height:auto}
+.sur-maquette{display:flex;width:fit-content;align-items:center;gap:6px;margin:14px 0 -4px;padding:3px 10px;background:var(--encre);color:var(--jaune);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;border-radius:3px}
 .encadre-logiciel{margin:1.2em 0 .6em;padding:12px 16px 12px 18px;background:#eef4fb;border:2px solid var(--encre);border-left:8px solid var(--bleu);border-radius:4px}
 .encadre-logiciel .el-titre{margin:0 0 6px;font-weight:800;color:var(--bleu)}
 .encadre-logiciel p{margin:0 0 6px}

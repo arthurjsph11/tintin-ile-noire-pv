@@ -348,6 +348,7 @@
           "<li><b>Les angles :</b> inclinaison retenue au TP 2 ; azimut 0, car dans PVGIS 0 veut dire plein sud.</li>" +
           "<li><b>Le profil :</b> ne chargez pas de fichier, gardez le profil par défaut.</li>" +
           "<li>Cliquez sur « Visualiser résultats ».</li></ol></div>";
+        if ((RT.surMaquette || []).indexOf(b.id) >= 0) h += '<p class="sur-maquette"><span aria-hidden="true">🔧</span> Sur maquette</p>';
         if (b.id === "q-T3-V3") h += '<p class="sim-avant">Utilisez ce simulateur de contrôleur permanent d\'isolement pour répondre à la question suivante.</p><div data-composant="cpi"></div>';
         h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + enonceAere(b) +
           (b.cases ? '<ol class="cases">' + b.cases.map(function (c) { return '<li><label><input type="checkbox"> ' + esc(c) + "</label></li>"; }).join("") + "</ol>" : "") +

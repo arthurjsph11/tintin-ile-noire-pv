@@ -233,6 +233,8 @@ window.VIVANT.retouches = {
         ["Étape 4 · Essayer et livrer à Tournesol", ["q-3-3-V3C-2", "q-3-3-V3C-3", "q-3-3-V3C-4"]]
       ] }
   },
+  // Questions pratiques : étiquette « Sur maquette » au-dessus (demandé par Arthur le 19/10)
+  surMaquette: ["q-4-1-2", "q-4-2-12", "q-4-2-15", "q-4-2-V4A-2"],
   // En-têtes de tableau renommés (question juste avant le tableau)
   entetesTableau: { "q-4-1-2": ["Ce que je vérifie", "Ce que je vois", "Ce que je propose"] }, // choisi par Arthur le 19/10
   // Lignes de tableau retirées (texte de la première cellule)
