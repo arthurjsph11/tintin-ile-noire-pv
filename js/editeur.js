@@ -157,7 +157,31 @@
     rendre();
   }
 
+  // Changer le mot de passe de l'Espace prof
+  function motdepasse(el) {
+    el.innerHTML = '<form class="mdp-form"><label>Mot de passe actuel<input type="password" name="ancien" autocomplete="current-password" required></label>' +
+      '<label>Nouveau mot de passe<input type="password" name="nouveau" autocomplete="new-password" minlength="6" required></label>' +
+      '<label>Nouveau mot de passe, une seconde fois<input type="password" name="confirme" autocomplete="new-password" required></label>' +
+      '<div><button class="btn" type="submit">Changer le mot de passe</button></div><p class="mdp-etat" role="status"></p></form>';
+    var f = el.querySelector("form"), msg = el.querySelector(".mdp-etat");
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var A = window.ACCES, n = f.nouveau.value.trim();
+      if (!A.verifier(f.ancien.value)) { msg.textContent = "Le mot de passe actuel est faux."; return; }
+      if (n.length < 6) { msg.textContent = "Le nouveau mot de passe doit avoir au moins 6 caractères."; return; }
+      if (n !== f.confirme.value.trim()) { msg.textContent = "Les deux nouveaux mots de passe ne sont pas identiques."; return; }
+      var emp = A.sha256(n);
+      try { localStorage.setItem("tintin-acces-v1", emp); } catch (er) {}
+      A.empreinte = emp;
+      var code = A.fichier(emp);
+      if (code) telecharger("acces.js", code);
+      f.reset();
+      msg.innerHTML = "<b>Mot de passe changé sur cet ordinateur.</b> " + (code ? "Le fichier <code>acces.js</code> vient d'être téléchargé : copiez-le dans le dossier <b>js</b> de la clé USB (et sur GitHub pour le site en ligne) pour changer le mot de passe partout." : "Pour le changer partout, demandez à l'équipe le nouveau fichier <code>acces.js</code>.");
+    });
+  }
+
   window.COMPOSANTS = window.COMPOSANTS || {};
   window.COMPOSANTS.editeur = editeur;
+  window.COMPOSANTS.motdepasse = motdepasse;
   window.EDITEUR = { brouillon: !!brouillon };
 })();

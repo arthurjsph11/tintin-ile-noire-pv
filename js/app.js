@@ -8,7 +8,6 @@
   var T = window.TERRE || { seances: [] };
   // Portraits des personnages du module « mise à la terre » (hors histoire de Tintin)
   var PORTRAITS = {};
-  var MOT_DE_PASSE_PROF = "tournesol";
   var FLECHE = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 
   function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -575,6 +574,7 @@
     [["Modifier","Choisissez le TP dans la liste, changez les textes, puis cliquez sur « Enregistrer et voir le résultat »."],["Vérifier","Ouvrez le TP (et son corrigé) pour relire le résultat."],["Télécharger","Cliquez sur « Télécharger les fichiers du site ». Vous obtenez 3 fichiers : <code>contenu.js</code>, <code>terre.js</code>, <code>corriges.js</code>."],["Partager","Copiez-les dans le dossier <code>js</code> du site sur la clé USB, en remplaçant les anciens, puis recopiez la clé sur les autres ordinateurs. Pour le site en ligne, envoyez les 3 fichiers à la personne qui gère GitHub."]].forEach(function (e, i) { h += '<li><span class="gd-pas">' + (i + 1) + '</span><div><b>' + e[0] + '</b><p>' + e[1] + '</p></div></li>'; });
     h += '</ol></section>';
     h += '<section class="gd-bloc"><h2><span class="gd-num">4</span>Une erreur ? On revient en arrière</h2><p>Le bouton <b>« Revenir à la version d\'origine »</b> efface toutes les modifications de cet ordinateur. Le TP redevient celui livré par l\'équipe.</p></section>';
+    h += '<section class="gd-bloc"><h2><span class="gd-num">5</span>Le mot de passe a circulé ?</h2><p>Dans l\'Espace prof, la carte <b>« Changer le mot de passe »</b> demande l\'ancien puis le nouveau. Il change tout de suite sur cet ordinateur, et un fichier <code>acces.js</code> est téléchargé.</p><p>Copiez <code>acces.js</code> dans le dossier <code>js</code> de la clé USB et sur GitHub : le nouveau mot de passe marche alors partout. Gardez une copie de l\'ancien fichier <code>acces.js</code> en lieu sûr : si le nouveau mot de passe est oublié, il suffit de le remettre.</p></section>';
     h += '<div class="gd-go"><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div>';
     return h;
   }
@@ -593,6 +593,7 @@
     h += '<section class="case"><h2><span class="etiquette">À imprimer</span>Fiche de suivi des compétences</h2><p>Le site ne garde pas la progression des élèves. Imprimez une fiche par élève : elle regroupe les bilans de compétences de tous les TP, à cocher sur papier.</p><div><a class="btn jaune" href="#fiche-competences">Ouvrir la fiche</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Dossier annexe</span>Synthèse des compétences du module</h2><p>Document de l\'enseignant, repris tel quel : le parcours des 11 séances, les compétences C1 à C13 travaillées dans chaque activité, et les fiches détaillées par compétence.</p><div><a class="btn jaune" href="annexes/Synthese_competences_module_PV.pdf" target="_blank" rel="noopener">Ouvrir le PDF</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Outil</span>Modifier les TP</h2><p>Changer un texte, une question, un tableau ou une correction, ajouter ou supprimer une question.' + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Des modifications sont enregistrées dans ce navigateur.</b>" : "") + '</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#editeur-guide">Mode d\'emploi</a><a class="btn" href="#editeur">Ouvrir l\'éditeur</a></div></section>';
+    h += '<section class="case"><h2><span class="etiquette">Outil</span>Changer le mot de passe</h2><p>Si le mot de passe a circulé chez les élèves, changez-le ici. Comme pour l\'éditeur, il change d\'abord sur cet ordinateur ; un fichier <code>acces.js</code> est téléchargé pour le changer partout.</p><div data-composant="motdepasse"></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Annexe</span>Ressources et repères</h2><p>Dossiers, références et limites de chaque activité (TP 5 et mise à la terre). Retirés des pages élèves.</p><div><a class="btn" href="#ressources">Ouvrir</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Pour l\'équipe</span>À retravailler</h2><p>Ce qu\'on ne sait pas encore et ce qui reste à revoir, avec les questions à poser aux profs.</p><div><a class="btn jaune" href="#a-retravailler">Voir la liste</a></div></section>';
     h += '<section class="case"><h2><span class="etiquette">Pour l\'équipe</span>Lexique des abréviations</h2><p>Vmp, Imp, Voc, Isc, kWc, MPPT… Toutes les abréviations des TP, expliquées simplement avec les valeurs de Tintin. Réservé à l\'équipe : les élèves découvrent les notions au fil des séances.</p><div><a class="btn jaune" href="#lexique">Ouvrir le lexique</a></div></section>';
@@ -656,7 +657,7 @@
     var f = $("#prof-form"); if (!f) return;
     f.addEventListener("submit", function (e) {
       e.preventDefault();
-      if ($("#mdp").value.trim().toLowerCase() === MOT_DE_PASSE_PROF) { setProf(); $("#page").removeAttribute("data-route"); route(); }
+      if (window.ACCES.verifier($("#mdp").value)) { setProf(); $("#page").removeAttribute("data-route"); route(); }
       else $("#prof-err").hidden = false;
     });
   }
