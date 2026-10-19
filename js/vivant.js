@@ -247,6 +247,7 @@ window.VIVANT.retouches = {
   questionsEnTexte: ["q-3-2-1"], // séance 3.2 : « 1. ΔU = 0,02 × U » est l'étape 1 de la méthode, pas une question
   // Énoncés réécrits, avec un bouton « Indice » facultatif
   enonces: {
+    "q-3-2-V3A-1": { texte: "Pour une liaison, relevez Ib, In et Iz dans le dossier. Vérifiez Ib ≤ In ≤ Iz. Sur la notice de la protection, relevez aussi sa tension assignée en DC et son pouvoir de coupure, et comparez-les à la tension du circuit et au courant de court-circuit." }, // validé par Arthur le 19/10
     "q-3-2-20": { texte: "Calculez le courant d'un panneau avec la formule I = P ÷ U. Pour la suite, on utilisera 9,82 A.", aide: "I = 300 ÷ 30,5" }, // demandé par Arthur le 19/10
     "q-3-2-21": { texte: "Calculez le courant batterie avec la formule I = P ÷ (U × η).", aide: "I = 3 000 ÷ (48 × 0,90)" },
     "q-3-1-17": { texte: "Dans PVGIS, ouvrez le calcul « Hors réseau » et saisissez les valeurs du tableau ci-dessous. Lancez le calcul, puis notez sur votre feuille si vous avez gardé le profil par défaut." }, // reformulée à la demande d'Arthur le 19/10
