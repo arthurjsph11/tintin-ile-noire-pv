@@ -645,7 +645,11 @@ h1.titre-page{overflow-wrap:break-word;min-width:0}
 .cpv-tiroir-corps .cpv{margin:0}
 .cpv-ouvrir{display:inline-flex;gap:8px;align-items:center;background:#f7a21b;color:var(--encre)}
 .cpv-astuce{display:block;margin-top:6px;font-size:13.5px;color:var(--gris)}
-@media print{.cpv-onglet,.cpv-tiroir{display:none!important}}
+.btn.lex-onglet{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:16px;z-index:40}
+.btn.lex-onglet[hidden]{display:none}
+.lex-ouvert .lex-onglet,.cpv-ouvert .lex-onglet{display:none}
+.lex-tiroir .lex-groupe{margin-top:12px}
+@media print{.cpv-onglet,.cpv-tiroir,.lex-onglet{display:none!important}}
 /* Lignes à trous : encadré « À compléter sur votre feuille » */
 .a-completer{display:grid;gap:10px;padding:14px 18px 16px;border:2px dashed var(--bleu);border-radius:6px;background:var(--bleu-clair)}
 .a-completer-titre{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--bleu)}

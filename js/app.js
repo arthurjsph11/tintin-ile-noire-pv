@@ -507,7 +507,11 @@
   function pageLexique() {
     var h = '<span class="bandeau"><a href="#prof" style="color:inherit">Espace prof</a></span><h1 class="titre-page">Le lexique de Tournesol</h1>' +
       bulle("Vmp, Isc, kWc… Toutes les abréviations des TP, avec les valeurs de l'installation de Tintin. Cherchez celle qui vous bloque.") +
-      '<div class="lex-recherche"><label for="lex-cherche">Chercher une abréviation</label><input id="lex-cherche" type="search" placeholder="Par exemple : Vmp" autocomplete="off"></div>';
+      lexiqueCorps("lex-cherche");
+    return h + pied();
+  }
+  function lexiqueCorps(idChamp) {
+    var h = '<div class="lex-recherche"><label for="' + idChamp + '">Chercher une abréviation</label><input id="' + idChamp + '" type="search" placeholder="Par exemple : Vmp" autocomplete="off"></div>';
     (window.VIVANT.lexique || []).forEach(function (g) {
       h += '<section class="case lex-groupe"><h2><span aria-hidden="true">' + g.ico + "</span> " + esc(g.titre) + '</h2><dl class="lexique">' +
         g.mots.map(function (m) {
@@ -515,10 +519,10 @@
             (m[3] ? '<span class="lex-ex">Exemple : ' + esc(m[3]) + "</span>" : "") + "</dd></div>";
         }).join("") + "</dl></section>";
     });
-    return h + '<p class="retour ko" id="lex-vide" hidden>Aucune abréviation trouvée. Essayez avec moins de lettres.</p>' + pied();
+    return h + '<p class="retour ko lex-vide" hidden>Aucune abréviation trouvée. Essayez avec moins de lettres.</p>';
   }
   function monterLexique(racine) {
-    var champ = racine.querySelector("#lex-cherche");
+    var champ = racine.querySelector(".lex-recherche input");
     if (!champ) return;
     champ.addEventListener("input", function () {
       var t = champ.value.trim().toLowerCase(), vus = 0;
@@ -530,7 +534,7 @@
         });
         g.hidden = !n; vus += n;
       });
-      racine.querySelector("#lex-vide").hidden = vus > 0;
+      racine.querySelector(".lex-vide").hidden = vus > 0;
     });
   }
   // À retravailler : points ouverts (données dans VIVANT.aRetravailler)
@@ -705,6 +709,28 @@
     } else window.scrollTo(0, 0);
     if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide" || r === "corriges" || r === "mot-de-passe" || r === "versions") && !profOuvert())) brancherProf();
     document.title = "Tintin sur l'île Noire PV";
+    majLexique(r);
+  }
+  /* Bouton bleu « Abréviations » (comme le bouton Menu) : le lexique dans un tiroir, partout dans l'espace prof et les TP en mode prof */
+  var lexTiroir = null, lexOnglet = null;
+  function lexFermer() { lexTiroir.hidden = true; document.body.classList.remove("lex-ouvert"); lexOnglet.focus(); }
+  function majLexique(r) {
+    if (!lexTiroir) {
+      lexOnglet = document.createElement("button");
+      lexOnglet.type = "button"; lexOnglet.className = "btn lex-onglet"; lexOnglet.hidden = true;
+      lexOnglet.innerHTML = '<span aria-hidden="true">🔤</span> Abréviations';
+      lexTiroir = document.createElement("aside");
+      lexTiroir.className = "cpv-tiroir lex-tiroir"; lexTiroir.hidden = true; lexTiroir.setAttribute("aria-label", "Lexique des abréviations");
+      lexTiroir.innerHTML = '<div class="cpv-tiroir-haut"><b>Lexique des abréviations</b><button type="button" class="btn leger">Fermer ✕</button></div><div class="cpv-tiroir-corps">' + lexiqueCorps("lex-cherche-tiroir") + "</div>";
+      lexTiroir.querySelector(".cpv-tiroir-haut button").addEventListener("click", lexFermer);
+      lexOnglet.addEventListener("click", function () { lexTiroir.hidden = false; document.body.classList.add("lex-ouvert"); lexTiroir.querySelector("input").focus({ preventScroll: true }); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lexTiroir.hidden) lexFermer(); });
+      document.body.appendChild(lexTiroir); document.body.appendChild(lexOnglet);
+      monterLexique(lexTiroir);
+    }
+    var voir = profOuvert() && r !== "lexique";
+    lexOnglet.hidden = !voir;
+    if (!voir && !lexTiroir.hidden) lexFermer();
   }
   function brancherProf() {
     var f = $("#prof-form"); if (!f) return;
