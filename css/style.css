@@ -262,6 +262,9 @@ figure.schema img{display:block;background:#fff;border:2px solid var(--gris-clai
 @media print{.menu,.bouton-menu,.suite{display:none}.app{display:block}}
 
 /* ---------- Retouches du 11/10 ---------- */
+.cases{display:grid;gap:6px;margin:10px 0 0;padding-left:28px}
+.cases label{cursor:pointer}
+.cases input{width:18px;height:18px;margin:0 6px 0 0;vertical-align:-3px;accent-color:var(--encre)}
 .indice{display:grid;gap:8px;justify-items:start;margin-top:8px}
 .indice button{background:var(--jaune);border:2px solid var(--encre);padding:4px 12px;font-weight:800;cursor:pointer;font-size:14px}
 .indice .reponse-indice{background:#fff9df;border:2px dashed var(--encre);padding:8px 12px;font-family:var(--mono);font-size:15px}

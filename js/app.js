@@ -87,7 +87,7 @@
       sec.blocks = sec.blocks.filter(function (b) { return !(b.t === "p" && (RT.paragraphesRetires || []).some(function (d) { return texte(b.s).indexOf(d) === 0; })); });
       sec.questions = sec.questions.filter(function (q) { return RT.questionsRetirees.indexOf(q.id) < 0; });
       sec.blocks.forEach(function (b) {
-        if (b.t === "q" && RT.enonces[b.id]) { b.s = [[RT.enonces[b.id].texte, 0, ""]]; b.indice = RT.enonces[b.id].indice; }
+        if (b.t === "q" && RT.enonces[b.id]) { b.s = [[RT.enonces[b.id].texte, 0, ""]]; b.indice = RT.enonces[b.id].indice; b.cases = RT.enonces[b.id].cases; }
         if (b.t === "q") {
           var m = /^([\s\S]*?)\s*Aide\s*:\s*([\s\S]+)$/.exec(texte(b.s));
           if (m) { b.s = [[m[1], 0, b.s[0][2] || ""]]; b.aide = m[2]; }
@@ -301,6 +301,7 @@
         if (b.id === "q-2-1-17") h += '<p class="sim-avant">Refaites le calcul dans le <a href="#" data-ouvrir-calcpv>simulateur CalcPV</a> : changez seulement l\'énergie quotidienne.</p>';
         if (b.id === "q-T3-V3") h += '<p class="sim-avant">Utilisez ce simulateur de contrôleur permanent d\'isolement pour répondre à la question suivante.</p><div data-composant="cpi"></div>';
         h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + enonceAere(b) +
+          (b.cases ? '<ol class="cases">' + b.cases.map(function (c) { return '<li><label><input type="checkbox"> ' + esc(c) + "</label></li>"; }).join("") + "</ol>" : "") +
           (b.indice ? '<div class="indice"><button type="button" data-indice="Indice" aria-expanded="false">Indice</button><div class="reponse-indice" hidden>' + esc(b.indice) + "</div></div>" : "") +
           (b.aide ? '<div class="indice"><button type="button" data-indice="Aide" aria-expanded="false">Aide</button><div class="reponse-indice" hidden>' + esc(b.aide) + "</div></div>" : "") +
           (b.feuille ? '<div class="feuille"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12l8-8 2 2-8 8H2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Je réponds sur ma feuille</div>' : "") + "</div></div>";

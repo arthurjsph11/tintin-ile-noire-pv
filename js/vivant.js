@@ -245,6 +245,8 @@ window.VIVANT.retouches = {
   questionsEnTexte: ["q-3-2-1"], // séance 3.2 : « 1. ΔU = 0,02 × U » est l'étape 1 de la méthode, pas une question
   // Énoncés réécrits, avec un bouton « Indice » facultatif
   enonces: {
+    "q-2-3-37": { texte: "Cochez les explications possibles de l'écart entre les deux logiciels. Recopiez les numéros cochés sur votre feuille.",
+      cases: ["Données météo différentes (station, années)", "Quantité de panneaux", "Arrondis de lecture", "Pertes par défaut différentes (câbles, onduleur…)", "Lieu différent"] }, // cases à cocher demandées par Arthur le 19/10
     "q-2-3-39": { texte: "Quelle est la différence géographique entre l'Île d'Or et un site du Bénin ?" },
     "q-2-1-18": { texte: "Comparez vos deux essais : quels résultats ont diminué ? Le nombre de panneaux a-t-il changé ? Expliquez pourquoi." },
     "q-1-1-V1A-3": {
