@@ -78,6 +78,11 @@
         tb.rows.forEach(function (row, r) { row.splice(k + 1, 0, r ? [] : [[[col.titre, 1, ""]]]); });
         tb.colonneAjoutee = true;
       });
+      // En-têtes de tableau renommés (VIVANT.retouches.entetesTableau, clé = question juste avant le tableau)
+      sec.blocks.forEach(function (b, i) {
+        var noms = b.t === "q" && (RT.entetesTableau || {})[b.id], tb = sec.blocks[i + 1];
+        if (noms && tb && tb.t === "table") noms.forEach(function (n, k) { if (tb.rows[0][k]) tb.rows[0][k] = [[[n, 1, ""]]]; });
+      });
       // Lignes de tableau retirées (VIVANT.retouches.lignesRetirees)
       sec.blocks.forEach(function (b) {
         if (b.t === "table") b.rows = b.rows.filter(function (row) {

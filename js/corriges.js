@@ -365,8 +365,8 @@ window.CORRIGES = {
   "4-1|1": ["Entretenir : agir AVANT la panne pour éviter qu'elle arrive (nettoyer, resserrer, contrôler). C'est la maintenance préventive.",
     "Dépanner : agir APRÈS la panne pour remettre en marche (trouver la cause, réparer). C'est la maintenance corrective."],
   "4-1|2": {
-    lignes: ["Attendu : un constat réel pour chaque ligne (ou « RAS »), puis une action proposée. Exemple de tableau rempli :"],
-    tableau: [["Point observé", "Constat (exemple)", "Action à proposer"],
+    lignes: ["Attendu : ce que l'élève voit vraiment pour chaque ligne (ou « RAS »), puis une action proposée. Exemple de tableau rempli :"],
+    tableau: [["Ce que je vérifie", "Ce que je vois (exemple)", "Ce que je propose"],
       ["Propreté et ombres", "poussière sur les panneaux, arbre qui fait de l'ombre l'après-midi", "nettoyer selon la notice, tailler l'arbre"],
       ["Fixations et corrosion", "une vis rouillée sur un support", "remplacer la vis, traiter la rouille"],
       ["Câbles et connecteurs", "un câble qui frotte sur le support", "le fixer et le protéger"],

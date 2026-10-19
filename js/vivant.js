@@ -233,6 +233,8 @@ window.VIVANT.retouches = {
         ["Étape 4 · Essayer et livrer à Tournesol", ["q-3-3-V3C-2", "q-3-3-V3C-3", "q-3-3-V3C-4"]]
       ] }
   },
+  // En-têtes de tableau renommés (question juste avant le tableau)
+  entetesTableau: { "q-4-1-2": ["Ce que je vérifie", "Ce que je vois", "Ce que je propose"] }, // choisi par Arthur le 19/10
   // Lignes de tableau retirées (texte de la première cellule)
   lignesRetirees: ["Pertes et pose"], // 2.3 Q35 : PV.TecSol n'affiche ni pertes ni pose, retirée par Arthur le 19/10
   // Lignes à trous remplacées par un tableau à remplir (début du paragraphe)
