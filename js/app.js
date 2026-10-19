@@ -65,7 +65,7 @@
       (RT.remplacements || []).forEach(function (r) {
         var rep = function (s) { s.forEach(function (x) { x[0] = x[0].split(r[0]).join(r[1]); }); };
         sec.blocks.forEach(function (b) {
-          if (b.t === "p") rep(b.s);
+          if (b.t === "p" || b.t === "dial") rep(b.s);
           if (b.t === "table") b.rows.forEach(function (row) { row.forEach(function (c) { if (Array.isArray(c)) c.forEach(function (par) { if (Array.isArray(par)) rep(par); }); }); });
         });
       });

@@ -255,6 +255,9 @@ window.VIVANT.retouches = {
   sectionsProf: ["s5-1-10", "sT1-7", "sT2-8", "sT3-8", "sT4-10"],
   // Phrases des supports qui renvoyaient au V3B retiré
   remplacements: [
+    // TP 5 « Relier puissance et énergie utile » : dialogue reformulé par Arthur le 19/10 (la réponse d'origine était évidente)
+    ["Si le rendement total vaut 67,5 %, puis-je utiliser toute cette énergie pour la lampe ?", "67,5 % ! Mon panneau hybride produit donc trois fois plus d'électricité qu'un panneau normal ?"],
+    ["Non. Seule la part électrique alimente directement la lampe. La chaleur doit trouver un usage, à une température adaptée, sinon elle n’est pas entièrement valorisée.", "Non. L'électricité reste à 17,5 %, comme un panneau classique. Les 67,5 % additionnent l'électricité et la chaleur, deux énergies différentes qu'on ne peut pas échanger."],
     ["Pour comparer sud et est, les Dupondt doublent aussi la puissance.", "Pour comparer sud et est, les Dupondt changent aussi la valeur de la puissance."],
     ["Faire V3B sur le simulateur préparé par l’enseignant.", "V3B (supervision Modbus) : retiré pour l'instant, à voir avec les enseignants."],
     ["Q34 et Q35 ; V3B", "Q34 et Q35"],
