@@ -64,7 +64,6 @@
   function deg(x, pos, neg) { return fr(Math.abs(x), 2) + "° " + (x >= 0 ? pos : neg); }
 
   function calcpv(el) {
-    el.id = "simulateur-calcpv";
     var h = '<div class="cpv"><div class="cpv-barre"><span class="cpv-logo">Calc<b>PV</b></span><span>Autonome · simulateur hors ligne</span></div><form class="cpv-form" novalidate>';
     h += '<fieldset><legend><span>1</span>Besoins</legend><label>Énergie quotidienne <span class="cpv-u"><input name="energie" type="number" min="0" step="10" inputmode="numeric"> Wh/j</span></label>' +
       '<label>Puissance maximale <span class="cpv-u"><input name="pmax" type="number" min="0" step="10" inputmode="numeric"> W</span></label></fieldset>';
@@ -122,7 +121,38 @@
       res.innerHTML = t;
     });
   }
+  /* ---------- Onglet « CalcPV » : le simulateur s'ouvre par-dessus la page, partout dans le TP 2 ----------
+     Un seul simulateur pour tout le site : les valeurs saisies restent quand on change de séance. */
+  var tiroir = null, onglet = null;
+  function construire() {
+    if (tiroir) return;
+    onglet = document.createElement("button");
+    onglet.type = "button"; onglet.className = "cpv-onglet"; onglet.hidden = true;
+    onglet.innerHTML = '<span aria-hidden="true">☀</span> Simulateur CalcPV';
+    onglet.addEventListener("click", ouvrir);
+    tiroir = document.createElement("aside");
+    tiroir.className = "cpv-tiroir"; tiroir.hidden = true; tiroir.setAttribute("aria-label", "Simulateur CalcPV");
+    tiroir.innerHTML = '<div class="cpv-tiroir-haut"><b>Simulateur CalcPV</b><button type="button" class="btn leger cpv-fermer">Fermer ✕</button></div><div class="cpv-tiroir-corps"></div>';
+    tiroir.querySelector(".cpv-fermer").addEventListener("click", fermer);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !tiroir.hidden) fermer(); });
+    document.body.appendChild(tiroir); document.body.appendChild(onglet);
+    calcpv(tiroir.querySelector(".cpv-tiroir-corps"));
+  }
+  function ouvrir() { construire(); tiroir.hidden = false; document.body.classList.add("cpv-ouvert"); var c = tiroir.querySelector("input[name=energie]"); if (c) c.focus({ preventScroll: true }); }
+  function fermer() { tiroir.hidden = true; document.body.classList.remove("cpv-ouvert"); onglet.focus(); }
+  // L'onglet n'apparaît que dans le TP 2 (élève et corrigé prof)
+  function dansTP2() { return /^#(tp2$|seance-2-|corrige-2-|s2-|q-2-)/.test(location.hash); }
+  function majOnglet() { construire(); onglet.hidden = !dansTP2(); if (!dansTP2() && !tiroir.hidden) fermer(); }
+  window.addEventListener("hashchange", majOnglet);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", majOnglet); else setTimeout(majOnglet, 0);
+  // Dans le TP : un bouton qui ouvre le simulateur
+  function bouton(el) {
+    el.innerHTML = '<button type="button" class="btn cpv-ouvrir"><span aria-hidden="true">☀</span> Ouvrir le simulateur CalcPV</button><span class="cpv-astuce">Il reste aussi accessible avec l\'onglet « Simulateur CalcPV » en bas à droite, partout dans le TP 2.</span>';
+    el.querySelector("button").addEventListener("click", ouvrir);
+  }
+  document.addEventListener("click", function (e) { var l = e.target.closest("[data-ouvrir-calcpv]"); if (l) { e.preventDefault(); ouvrir(); } });
+
   window.COMPOSANTS = window.COMPOSANTS || {};
-  window.COMPOSANTS.calcpv = calcpv;
-  window.CALCPV = { calculer: calculer, surPanneaux: surPanneaux, LIEUX: LIEUX, MODULES: MODULES };
+  window.COMPOSANTS.calcpv = bouton;
+  window.CALCPV = { ouvrir: ouvrir, calculer: calculer, surPanneaux: surPanneaux, LIEUX: LIEUX, MODULES: MODULES };
 })();
