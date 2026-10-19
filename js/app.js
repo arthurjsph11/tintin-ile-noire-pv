@@ -299,6 +299,14 @@
         // Le simulateur de CPI est placé AVANT la question qui l'utilise
         if (b.id === "q-2-1-12") h += '<p class="sim-avant">Saisissez les données du tableau dans le simulateur de CalcPV. Il fonctionne sans Internet et sert pour les questions suivantes, jusqu\'à la question 18. Vérifiez chaque ligne du tableau avant de lancer le calcul : énergie, période, inclinaison, tension.</p><div data-composant="calcpv"></div>';
         if (b.id === "q-2-1-17") h += '<p class="sim-avant">Refaites le calcul dans le <a href="#" data-ouvrir-calcpv>simulateur CalcPV</a> : changez seulement l\'énergie quotidienne.</p>';
+        if (b.id === "q-3-1-17") h += '<div class="encadre-logiciel"><p class="el-titre"><span aria-hidden="true">☀</span> Simulation avec PVGIS</p>' +
+          '<p>Grâce à PVGIS, rentrez les données de l\'installation de Tintin : <a href="https://re.jrc.ec.europa.eu/pvg_tools/fr/" target="_blank" rel="noopener">https://re.jrc.ec.europa.eu/pvg_tools/fr/</a></p><ol>' +
+          "<li><b>Le lieu :</b> en bas de la carte, dans « Lat/Lon », tapez 43.4167 et 6.8417 puis cliquez sur « Aller! ». C'est Le Dramont, sur la côte en face de l'Île d'Or : PVGIS refuse un point en mer.</li>" +
+          "<li><b>Le calcul :</b> dans la colonne de gauche, cliquez sur « HORS RÉSEAU » (et non « Couplé au réseau »).</li>" +
+          "<li><b>Les valeurs :</b> recopiez le tableau ci-dessous. Attention aux unités : la puissance en Wc (3600), la batterie en Wh (86400).</li>" +
+          "<li><b>Les angles :</b> inclinaison retenue au TP 2 ; azimut 0, car dans PVGIS 0 veut dire plein sud.</li>" +
+          "<li><b>Le profil :</b> ne chargez pas de fichier, gardez le profil par défaut.</li>" +
+          "<li>Cliquez sur « Visualiser résultats ».</li></ol></div>";
         if (b.id === "q-T3-V3") h += '<p class="sim-avant">Utilisez ce simulateur de contrôleur permanent d\'isolement pour répondre à la question suivante.</p><div data-composant="cpi"></div>';
         h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + enonceAere(b) +
           (b.cases ? '<ol class="cases">' + b.cases.map(function (c) { return '<li><label><input type="checkbox"> ' + esc(c) + "</label></li>"; }).join("") + "</ol>" : "") +

@@ -483,6 +483,11 @@ ul.puces{margin:0;padding-left:22px;display:grid;gap:4px}
 ul.aere{margin:.4em 0 .8em;padding-left:1.3em}
 ul.aere li{margin:.3em 0;line-height:1.5}
 ul.aere ul{margin:.2em 0 .2em;padding-left:1.2em}
+.encadre-logiciel{margin:1.2em 0 .6em;padding:12px 16px 12px 18px;background:#eef4fb;border:2px solid var(--encre);border-left:8px solid var(--bleu);border-radius:4px}
+.encadre-logiciel .el-titre{margin:0 0 6px;font-weight:800;color:var(--bleu)}
+.encadre-logiciel p{margin:0 0 6px}
+.encadre-logiciel a{overflow-wrap:anywhere;font-weight:700}
+.encadre-logiciel ol{margin:6px 0 0;padding-left:22px;display:grid;gap:6px}
 p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
 .bandeau-corrige{background:var(--vert-prof);color:#fff;font-weight:700;padding:6px 12px;border-radius:6px;display:inline-block;margin:0 0 8px}
 .enonce .ligne-aeree{display:block;margin:.25em 0}

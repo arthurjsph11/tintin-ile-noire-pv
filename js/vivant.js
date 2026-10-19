@@ -245,6 +245,7 @@ window.VIVANT.retouches = {
   questionsEnTexte: ["q-3-2-1"], // séance 3.2 : « 1. ΔU = 0,02 × U » est l'étape 1 de la méthode, pas une question
   // Énoncés réécrits, avec un bouton « Indice » facultatif
   enonces: {
+    "q-3-1-17": { texte: "Dans PVGIS, ouvrez le calcul « Hors réseau » et saisissez les valeurs du tableau ci-dessous. Lancez le calcul, puis notez sur votre feuille si vous avez gardé le profil par défaut." }, // reformulée à la demande d'Arthur le 19/10
     "q-2-3-37": { texte: "Cochez les explications possibles de l'écart entre les deux logiciels. Recopiez les numéros cochés sur votre feuille.",
       cases: ["Données météo différentes (station, années)", "Quantité de panneaux", "Arrondis de lecture", "Pertes par défaut différentes (câbles, onduleur…)", "Lieu différent"] }, // cases à cocher demandées par Arthur le 19/10
     "q-2-3-39": { texte: "Quelle est la différence géographique entre l'Île d'Or et un site du Bénin ?" },

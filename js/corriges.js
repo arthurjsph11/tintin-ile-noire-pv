@@ -274,6 +274,7 @@ window.CORRIGES = {
     "Attendu : le profil horaire choisi est noté (ou « profil par défaut »).",
     "Piège : ne pas multiplier les résultats de PVGIS par 0,75 ; le logiciel compte déjà ses propres pertes."],
   "3-1|18": ["Attendu : le nom exact de l'indicateur tel que PVGIS l'affiche, sa valeur et son unité, pour chaque mois de mai à septembre.",
+    "Sens de l'indicateur : le pourcentage de jours où la batterie est vide, c'est-à-dire descendue au seuil de 20 %. Ces jours-là, l'installation coupe pour protéger la batterie : Tintin risque de manquer d'électricité. Plus ce pourcentage est petit, mieux c'est.",
     "Exemple (valeurs fictives) : « pourcentage de jours où la batterie atteint le seuil bas » : 0 % en juin, 2 % en septembre.",
     "Attention : la réponse dépend du lieu et des angles saisis ; on ne corrige que la méthode et les unités."],
   "3-1|19": ["Méthode : comparer chaque mois utilisé à la cible (au plus 1 % de jours au seuil bas). Regarder aussi l'énergie non fournie.",
