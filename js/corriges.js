@@ -205,9 +205,9 @@ window.CORRIGES = {
     "Conclusion : sans batterie, pas d'électricité la nuit, et le surplus de midi est perdu (pas de réseau). La batterie reste indispensable."],
 
   /* ================= TP 2 · Séance 2.3 ================= */
-  "2-3|38": ["Attendu : une ville du Bénin notée et au moins deux essais AutoCalSol avec la même puissance et la même période.",
+  "2-3|38": ["Attendu : un site béninois noté (ville) et au moins deux essais AutoCalSol avec la même puissance et la même période.",
     "Repères au Bénin : Cotonou ≈ 6° N, Parakou ≈ 9° N, Natitingou ≈ 10° N. Près de l'équateur, une faible pente (10 à 15°) suffit."],
-  "2-3|39": ["Réponse : le site du Bénin est beaucoup plus près de l'équateur (environ 6 à 12° N contre 43° N pour l'Île d'Or). Le soleil y est plus haut, les saisons et le climat sont différents.",
+  "2-3|39": ["Réponse : le site béninois est beaucoup plus près de l'équateur (environ 6 à 12° N contre 43° N pour l'Île d'Or). Le soleil y est plus haut, les saisons et le climat sont différents.",
     "Conclusion : l'inclinaison et parfois l'orientation optimales changent. On refait les essais au lieu de recopier."],
   "2-3|40": ["Exemple de rédaction : « Tintin, nous proposons provisoirement 12 panneaux de 300 Wc. Nous retenons la direction sud et une inclinaison de 15°. Notre preuve : l'essai A d'AutoCalSol, le meilleur de nos six essais de mai à septembre. »",
     "Reste à vérifier : l'ombre de la tour, la place (V2A), la batterie et le régulateur (activité 3), les câbles et protections, le budget.",
