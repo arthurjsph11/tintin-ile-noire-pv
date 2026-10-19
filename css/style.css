@@ -561,3 +561,5 @@ p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
 .liste-corriges a{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border:2px solid var(--gris-clair);border-radius:4px;text-decoration:none;color:var(--encre);background:var(--papier)}
 .liste-corriges a:hover{border-color:var(--vert-prof);background:#eef7ee}
 .liste-corriges .num-seance{background:var(--vert-prof)}
+.prof-liens{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.prof-liens .btn{font-size:14px;padding:6px 12px}
