@@ -488,3 +488,21 @@ p.sim-avant{font-style:italic;margin:1em 0 .4em;color:#1f4e79}
 .ar-groupe.ar-paris{border-left:6px solid var(--vert-prof)}
 .ar-groupe.ar-idee{border-left:6px solid #e0a800}
 .ar-groupe.ar-equipe{border-left:6px solid var(--bleu)}
+/* Éditeur des TP (Espace prof) */
+.ed-barre{position:sticky;top:0;z-index:5;background:var(--fond,#fbf6ea);padding:10px 0;border-bottom:2px solid var(--encre);display:grid;gap:8px;margin-bottom:12px}
+.ed-barre select{max-width:100%;font-size:15px;padding:4px}
+.ed-boutons{display:flex;flex-wrap:wrap;gap:8px}
+.ed-etat{margin:0;font-weight:700;color:var(--vert-prof)}
+.ed-section{display:grid;gap:10px}
+.ed-titre input,.ed-titre-seance input{width:100%;font-size:17px;font-weight:700;padding:4px 6px;box-sizing:border-box}
+.ed-bloc{display:grid;gap:4px;padding:8px;border:1px dashed #b9b0a0;border-radius:6px;background:#fff}
+.ed-bloc textarea,.ed-bloc input{width:100%;box-sizing:border-box;font:inherit;padding:4px 6px}
+.ed-bloc .ed-num{width:7em}
+.ed-question{border-left:5px solid var(--bleu)}
+.ed-corr{display:grid;gap:2px;font-size:13px;color:var(--vert-prof);font-weight:700}
+.ed-type{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#6b6457}
+.ed-fixe{color:#6b6457;font-style:italic}
+.ed-actions{display:flex;flex-wrap:wrap;gap:6px}
+.ed-actions .btn{font-size:12px;padding:3px 8px}
+.ed-suppr{color:#b3261e}
+.ed-table{overflow-x:auto}.ed-table td{min-width:140px;vertical-align:top}
