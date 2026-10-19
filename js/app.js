@@ -366,7 +366,7 @@
           (b.feuille ? '<div class="feuille"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12l8-8 2 2-8 8H2z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Je réponds sur ma feuille</div>' : "") + "</div></div>";
         // Tableau à recopier et compléter sur la feuille (VIVANT.tableauxARemplir : [entêtes, lignes])
         var tr = (V.tableauxARemplir || {})[b.id];
-        if (tr) h += '<p class="note-feuille">Recopiez ce tableau sur votre feuille et complétez-le.</p>' + rendreTable([tr[0].map(function (c) { return [[[c, 1, ""]]]; })].concat(tr[1].map(function (l) { return [[[[l, 1, ""]]]].concat(tr[0].slice(1).map(function () { return []; })); })));
+        if (tr) h += rendreTable([tr[0].map(function (c) { return [[[c, 1, ""]]]; })].concat(tr[1].map(function (l) { return [[[[l, 1, ""]]]].concat(tr[0].slice(1).map(function () { return []; })); })));
         if (profOuvert() && modeCorrige) h += correction(s, b.num);
         if (s.id === "1-1" && b.num === "4") h += '<div data-composant="ordre"></div>';
         if (b.id === "q-1-2-12") h += '<div data-composant="panneau-virtuel"></div>';

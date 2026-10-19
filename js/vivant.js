@@ -393,7 +393,8 @@ window.VIVANT.dialoguesAvant = {
 
 /* Tableaux à recopier et compléter sur la feuille, affichés sous une question (clé : id de la question) */
 window.VIVANT.tableauxARemplir = {
-  "q-T3-8": [["Rubrique", "Votre message de maintenance"], ["Alarme", "Départ suspect", "Risque si le défaut persiste", "Action demandée"]]
+  "q-T3-8": [["Rubrique", "Votre message de maintenance"], ["Alarme", "Départ suspect", "Risque si le défaut persiste", "Action demandée"]],
+  "q-5-1-2": [["Élément", "Où se trouve-t-il ?", "Son rôle"], ["Circulateur", "Régulateur MPPT", "Batterie", "Ballon"]] // demandé par Arthur le 19/10
 };
 
 /* Vidéos en ligne, affichées juste avant une image des supports (clé : nom de l'image) */
