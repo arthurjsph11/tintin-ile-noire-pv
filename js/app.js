@@ -154,18 +154,6 @@
     if (T.seances.length) onglet("terre", "terre", "TP mise à la terre · " + T.titre, T.seances.map(function (s) { return s.id; }));
     h += '<li><a class="nav-lien nav-simple" href="#jeux" data-route="jeux">Jeux</a></li>';
     h += '<li><a class="nav-lien nav-simple" href="#prof" data-route="prof">Espace prof</a></li>';
-    // Abréviations : visibles seulement en mode prof, dépliables comme les TP (groupes puis abréviations)
-    h += '<li class="onglet seul-prof"><div class="ligne"><a class="nav-lien" href="#lexique" data-route="lexique">Abréviations</a>' +
-      '<button class="fleche" aria-label="Afficher les abréviations" aria-expanded="' + (ouverts.lex ? "true" : "false") + '" data-ouvre="lex">' + FLECHE + "</button></div>" +
-      '<ul class="sous" id="m-lex"' + (ouverts.lex ? "" : " hidden") + ">";
-    (V.lexique || []).forEach(function (g, i) {
-      var kk = "lex-" + i;
-      h += '<li><div class="ligne"><a class="nav-lien" href="#lexique" data-groupe-lex="' + i + '"><span aria-hidden="true">' + g.ico + "</span> " + esc(g.titre) + "</a>" +
-        '<button class="fleche petite" aria-label="Afficher les abréviations : ' + esc(g.titre) + '" aria-expanded="' + (ouverts[kk] ? "true" : "false") + '" data-ouvre="' + kk + '">' + FLECHE + "</button></div>" +
-        '<ul class="questions-menu" id="m-' + kk + '"' + (ouverts[kk] ? "" : " hidden") + ">" +
-        g.mots.map(function (m) { return '<li class="lex-menu" title="' + esc(m[2]) + '"><b>' + esc(m[0]) + "</b> " + esc(m[1]) + "</li>"; }).join("") + "</ul></li>";
-    });
-    h += "</ul></li>";
     h += "</ul>";
     var m = $("#menu"); m.innerHTML = h;
     m.addEventListener("click", function (e) {
@@ -175,8 +163,6 @@
         b.setAttribute("aria-expanded", ouvert); ul.hidden = !ouvert; ouverts[k] = ouvert; lsSet("menu", JSON.stringify(ouverts));
         return;
       }
-      var gl = e.target.closest("[data-groupe-lex]");
-      if (gl) { window.__groupeLex = +gl.getAttribute("data-groupe-lex"); if (location.hash === "#lexique") route(); }
       if (e.target.closest("a") && window.innerWidth <= 860) m.classList.remove("ouvert");
     });
   }
@@ -724,9 +710,6 @@
     if (r === "prof" || ((r === "fiche-competences" || r === "lexique" || r === "a-retravailler" || r === "ressources" || r === "editeur" || r === "editeur-guide" || r === "corriges" || r === "mot-de-passe" || r === "versions") && !profOuvert())) brancherProf();
     document.title = "Tintin sur l'île Noire PV";
     majLexique(r);
-    document.body.classList.toggle("mode-prof", profOuvert());
-    var gl = window.__groupeLex; window.__groupeLex = null;
-    if (r === "lexique" && gl != null) { var sg = document.querySelectorAll("#page .lex-groupe")[gl]; if (sg) sg.scrollIntoView({ block: "start" }); }
   }
   /* Bouton bleu « Abréviations » (comme le bouton Menu) : le lexique dans un tiroir, partout dans l'espace prof et les TP en mode prof */
   var lexTiroir = null, lexOnglet = null;

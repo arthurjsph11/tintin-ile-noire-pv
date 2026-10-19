@@ -64,10 +64,6 @@ input,select,textarea{color:var(--encre)}
 .questions-menu .nav-lien{font-size:13px;color:#4a463e;padding:5px 8px;gap:8px}
 .questions-menu .qn{font-family:var(--mono);font-weight:700;color:var(--bleu);flex:none}
 .nav-sep{height:14px}
-.seul-prof{display:none}
-.mode-prof .seul-prof{display:block}
-.lex-menu{padding:6px 10px 6px 14px;font-size:14px;line-height:1.35;border-top:1px dashed rgba(0,0,0,.15)}
-.lex-menu b{font-family:var(--mono);color:var(--bleu);margin-right:4px}
 .nav-simple{border:2px solid var(--encre);border-radius:4px;background:var(--blanc);font-weight:800}
 
 /* ---------- Bandeaux et titres ---------- */
