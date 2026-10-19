@@ -714,6 +714,7 @@
     h += groupe("Dossier annexe", "",
       tuile("À imprimer", "Fiche de suivi des compétences", "Une fiche par élève, à cocher sur papier.", "#fiche-competences") +
       tuile("PDF", "Synthèse des compétences", "Parcours des 11 séances et compétences C1 à C13.", "annexes/Synthese_competences_module_PV.pdf", true) +
+      tuile("PDF", "Mode d'emploi : modifier le site", "Modifier un TP, créer une version, la mettre sur la clé USB, revenir en arrière.", "annexes/Mode_emploi_modifier_le_site.pdf", true) +
       tuile("Annexe", "Ressources et repères", "Dossiers, références et limites (TP 5 et mise à la terre).", "#ressources"));
     h += groupe("Outils", "",
       '<div class="prof-tuile"><span class="etiquette">Outil</span><b>Modifier les TP</b><small>Textes, questions, tableaux, corrections.' + (window.EDITEUR && window.EDITEUR.brouillon ? " <b>Modifications enregistrées ici.</b>" : "") + '</small><span class="prof-liens"><a class="btn" href="#editeur">Ouvrir l\'éditeur</a><a class="btn leger" href="#editeur-guide">Mode d\'emploi</a></span></div>' +
