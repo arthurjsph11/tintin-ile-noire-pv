@@ -221,8 +221,8 @@ window.VIVANT = {
 window.VIVANT.retouches = {
   // Questions retirées du site
   // Lignes à trous remplacées par un tableau à remplir (début du paragraphe)
-  paragraphesRetires: [],
-  questionsRetirees: ["q-1-1-V1A-1", "q-2-1-11"], // V1A.1 : vocabulaire anglais ; 2.1 Q11 : recopier les coordonnées (retirée par Arthur le 19/10)
+  paragraphesRetires: ["Profil exploré ___"], // zone à compléter de la question 2.2 Q30, retirée avec elle
+  questionsRetirees: ["q-1-1-V1A-1", "q-2-1-11", "q-2-2-30"], // V1A.1 : vocabulaire anglais ; 2.1 Q11 (coordonnées) et 2.2 Q30 (profil AutoCalSol) : retirées par Arthur le 19/10
   // Images des supports remises dans le bon sens, avec une légende
   images: {
     "34adb4dd19.jpeg": { src: "34adb4dd19-droit.jpg", alt: "Armoire technique d'une installation photovoltaïque",
