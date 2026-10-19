@@ -234,6 +234,7 @@ window.VIVANT.retouches = {
   sectionsProf: ["s5-1-10", "sT1-7", "sT2-8", "sT3-8", "sT4-10"],
   // Phrases des supports qui renvoyaient au V3B retiré
   remplacements: [
+    ["Pour comparer sud et est, les Dupondt doublent aussi la puissance.", "Pour comparer sud et est, les Dupondt changent aussi la valeur de la puissance."],
     ["Faire V3B sur le simulateur préparé par l’enseignant.", "V3B (supervision Modbus) : retiré pour l'instant, à voir avec les enseignants."],
     ["Q34 et Q35 ; V3B", "Q34 et Q35"],
     ["Chaîne d’informations : capteur, supervision et Modbus TCP sur simulateur.", "Chaîne d’informations : capteur et supervision."]

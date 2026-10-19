@@ -196,7 +196,7 @@ window.CORRIGES = {
     tableau: [["Erreur des Dupondt", "Correction"],
       ["Besoin saisi : 12,1 Wh/j", "12 100 Wh/j (ou 12,1 kWh/j) : erreur d'unité"],
       ["12 × 300 Wc saisis : 36 kWc", "12 × 300 = 3 600 Wc = 3,6 kWc : erreur de virgule"],
-      ["Ils doublent aussi la puissance", "Garder 3,6 kWc : on ne change que l'orientation"],
+      ["Ils changent aussi la valeur de la puissance", "Garder 3,6 kWc : on ne change que l'orientation"],
       ["Ils additionnent les 12 mois", "Additionner seulement mai à septembre (5 mois)"]],
     apres: ["Attendu : un nouvel essai AutoCalSol cohérent (3,6 kWc, même pose), avec son nom et une capture."]
   },
