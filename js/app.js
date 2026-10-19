@@ -278,6 +278,8 @@
       }
       if (b.t === "q") {
         // Le simulateur de CPI est placé AVANT la question qui l'utilise
+        if (b.id === "q-2-1-11") h += '<p class="sim-avant">Saisissez les données du tableau dans ce simulateur de CalcPV. Il fonctionne sans Internet et sert pour les questions 11 à 18.</p><div data-composant="calcpv"></div>';
+        if (b.id === "q-2-1-17") h += '<p class="sim-avant">Refaites le calcul dans le <a href="#simulateur-calcpv">simulateur CalcPV</a> : changez seulement l\'énergie quotidienne.</p>';
         if (b.id === "q-T3-V3") h += '<p class="sim-avant">Utilisez ce simulateur de contrôleur permanent d\'isolement pour répondre à la question suivante.</p><div data-composant="cpi"></div>';
         h += '<div class="question' + (b.v ? " violette" : "") + '" id="' + b.id + '"><span class="numero">' + esc(b.num) + '</span><div class="enonce">' + enonceAere(b) +
           (b.indice ? '<div class="indice"><button type="button" data-indice="Indice" aria-expanded="false">Indice</button><div class="reponse-indice" hidden>' + esc(b.indice) + "</div></div>" : "") +
