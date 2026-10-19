@@ -67,8 +67,8 @@ window.VIVANT = {
       definition: "Appareil qui transforme le courant continu de la batterie (48 V DC) en courant alternatif.",
       role: "Fournir du 230 V alternatif, 50 Hz, comme le réseau, pour faire fonctionner les appareils de la maison." },
     { id: "tableau", zone: "maison", nom: "Tableau électrique AC",
-      definition: "Coffret qui contient les disjoncteurs et le dispositif différentiel de la maison.",
-      role: "Répartir l'électricité vers les circuits, protéger les câbles (disjoncteurs) et protéger les personnes (différentiel)." },
+      definition: "Coffret qui contient les disjoncteurs et le dispositif différentiel résiduel de la maison.",
+      role: "Répartir l'électricité vers les circuits, protéger les câbles (disjoncteurs) et protéger les personnes (dispositif différentiel résiduel)." },
     { id: "eclairage", zone: "maison", nom: "Éclairage LED",
       definition: "Récepteur de faible puissance : de 5 à 15 W par lampe dans le bilan de Tintin.",
       role: "Éclairer la maison. Plus une lampe reste allumée longtemps, plus elle consomme d'énergie : E = P × t." },
@@ -77,7 +77,7 @@ window.VIVANT = {
       role: "Conserver les aliments. Ils fonctionnent jour et nuit : ce sont de gros postes du bilan énergétique." },
     { id: "terre", zone: "maison", nom: "Prise de terre",
       definition: "Électrode (piquet) enfoncée dans le sol et reliée aux parties métalliques de l'installation.",
-      role: "Évacuer un courant de défaut vers la terre pour que le différentiel coupe : elle protège les personnes." }
+      role: "Évacuer un courant de défaut vers la terre pour que le dispositif différentiel résiduel coupe : elle protège les personnes." }
   ],
   couches: [
     { id: "verre", nom: "Verre trempé", role: "Protège les cellules de la pluie, de la grêle et de la poussière tout en laissant passer la lumière." },
@@ -98,8 +98,8 @@ window.VIVANT = {
       expl: "L'onduleur transforme le courant continu (DC) en alternatif 230 V (AC)." },
     { q: "Où trouve-t-on du courant continu ?", choix: ["Entre les panneaux et l'onduleur", "Dans les prises de la maison", "Dans les lampes du salon", "Nulle part"], bon: 0,
       expl: "Panneaux, régulateur et batterie sont en continu. Après l'onduleur, c'est de l'alternatif." },
-    { q: "Quel appareil protège les personnes contre les défauts d'isolement ?", choix: ["Le régulateur MPPT", "Le dispositif différentiel", "La batterie", "Le verre du panneau"], bon: 1,
-      expl: "Le différentiel, associé à la prise de terre, coupe en cas de fuite de courant." },
+    { q: "Quel appareil protège les personnes contre les défauts d'isolement ?", choix: ["Le régulateur MPPT", "Le dispositif différentiel résiduel", "La batterie", "Le verre du panneau"], bon: 1,
+      expl: "Le dispositif différentiel résiduel, associé à la prise de terre, coupe en cas de fuite de courant." },
     { q: "À quoi servent les diodes bypass ?", choix: ["À recharger la batterie", "À contourner les cellules à l'ombre", "À allumer les lampes", "À mesurer la tension"], bon: 1,
       expl: "Elles font passer le courant autour d'un groupe de cellules à l'ombre." }
   ],
@@ -247,7 +247,7 @@ window.VIVANT.retouches = {
   // Images des supports remises dans le bon sens, avec une légende
   images: {
     "34adb4dd19.jpeg": { src: "34adb4dd19-droit.jpg", alt: "Armoire technique d'une installation photovoltaïque",
-      legende: "L'armoire technique de l'installation. Au centre : l'onduleur. En haut à gauche : le coffret de protection AC (disjoncteur et différentiel). En haut à droite : le coffret de protection DC, côté panneaux. Les câbles noirs viennent des panneaux ; sous l'onduleur, le schéma de câblage." }
+      legende: "L'armoire technique de l'installation. Au centre : l'onduleur. En haut à gauche : le coffret de protection AC (disjoncteur et dispositif différentiel résiduel). En haut à droite : le coffret de protection DC, côté panneaux. Les câbles noirs viennent des panneaux ; sous l'onduleur, le schéma de câblage." }
   },
   // V3B (supervision Modbus, séance 3.3) : retiré à la demande de l'équipe, à voir avec les profs (voir « À retravailler »)
   sectionsRetirees: ["s3-3-2"],
@@ -261,6 +261,7 @@ window.VIVANT.retouches = {
     ["Pour comparer sud et est, les Dupondt doublent aussi la puissance.", "Pour comparer sud et est, les Dupondt changent aussi la valeur de la puissance."],
     ["Faire V3B sur le simulateur préparé par l’enseignant.", "V3B (supervision Modbus) : retiré pour l'instant, à voir avec les enseignants."],
     ["Q34 et Q35 ; V3B", "Q34 et Q35"],
+    ["C10 : lecture du simulateur V3B ; ", ""], // V3B retiré : sa preuve C10 aussi (19/10)
     ["Chaîne d’informations : capteur, supervision et Modbus TCP sur simulateur.", "Chaîne d’informations : capteur et supervision."]
   ],
   // Lignes du support lues à tort comme des questions : affichées comme du texte
@@ -372,7 +373,7 @@ window.VIVANT.lexique = [
     ["I_d", "courant de défaut", "Courant qui passe par le défaut et revient à la source."],
     ["I_d1", "courant au premier défaut", "En IT, le courant de défaut lors d'un premier défaut."],
     ["I_d2", "courant au second défaut", "En IT, le courant lorsqu'un second défaut apparaît sur une autre phase."],
-    ["IΔn", "sensibilité du différentiel", "Courant de fuite à partir duquel le dispositif différentiel résiduel coupe (par exemple 30 mA)."],
+    ["IΔn", "sensibilité du dispositif différentiel résiduel", "Courant de fuite à partir duquel le dispositif différentiel résiduel coupe (par exemple 30 mA)."],
     ["I_n", "calibre", "Courant nominal du disjoncteur, écrit sur l'appareil (par exemple 16 A pour un C16)."],
     ["I_a", "courant de coupure assurée", "Courant qui fait couper le dispositif dans le temps exigé."],
     ["R_A", "résistance de la terre des masses", "Résistance de la prise de terre de l'installation, à laquelle sont reliées les masses."],

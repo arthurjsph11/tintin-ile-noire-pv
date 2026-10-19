@@ -35,6 +35,11 @@
     src.terre.seances.forEach(function (s) { l.push({ s: s, nom: "Mise à la terre · activité " + s.num + " (" + s.code + ") · " + s.titre }); });
     return l;
   }
+  // Texte de la question tel que le site l'affiche (énoncés reformulés par l'équipe dans vivant.js, sauf si un prof l'a déjà modifié)
+  function texteAffiche(b) {
+    var en = window.VIVANT && window.VIVANT.retouches && window.VIVANT.retouches.enonces[b.id];
+    return en && !b.edite ? en.texte : texteSegs(b.s);
+  }
   function majQuestions(sec) {
     sec.questions = sec.blocks.filter(function (b) { return b.t === "q"; }).map(function (b) {
       var t = texteSegs(b.s); return { num: b.num, id: b.id, court: t.length > 70 ? t.slice(0, 70) : t };
@@ -68,7 +73,7 @@
         var c = src.corriges[s.id + "|" + b.num], lignes = Array.isArray(c) ? c : (c && c.lignes) || [];
         var autre = c && !Array.isArray(c) && (c.document || c.tableau || c.apres);
         return '<div class="ed-bloc ed-question"><span class="ed-type">Question</span><label>N° <input class="ed-num"' + ref + ' data-champ="num" value="' + esc(b.num) + '"></label>' +
-          '<textarea' + ref + ' data-champ="q" rows="3">' + esc(texteSegs(b.s)) + "</textarea>" +
+          '<textarea' + ref + ' data-champ="q" rows="3">' + esc(texteAffiche(b)) + "</textarea>" +
           '<label class="ed-corr">Correction (une ligne par élément de réponse)' + (autre ? " · le tableau ou le document de cette correction reste tel quel" : "") +
           '<textarea' + ref + ' data-champ="corr" rows="' + Math.max(2, lignes.length + 1) + '">' + esc(lignes.join("\n")) + "</textarea></label>" +
           boutons(si, bi, true) + "</div>";
@@ -108,6 +113,7 @@
       if (champ === "titre") { sec.titre = t.value; return; }
       var b = sec.blocks[+t.getAttribute("data-bloc")];
       if (champ === "p" || champ === "q") b.s = segsDe(t.value, b.s);
+      if (champ === "q") b.edite = true;
       else if (champ === "h3") b.text = t.value;
       else if (champ === "cellule") { var r = +t.getAttribute("data-r"), c = +t.getAttribute("data-c"); b.rows[r][c] = celluleDe(t.value, b.rows[r][c]); }
       else if (champ === "num") {

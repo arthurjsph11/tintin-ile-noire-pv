@@ -110,14 +110,15 @@
       sec.blocks = sec.blocks.filter(function (b) { return !(b.t === "p" && (RT.paragraphesRetires || []).some(function (d) { return texte(b.s).indexOf(d) === 0; })); });
       sec.questions = sec.questions.filter(function (q) { return RT.questionsRetirees.indexOf(q.id) < 0; });
       sec.blocks.forEach(function (b) {
-        if (b.t === "q" && RT.enonces[b.id]) { b.s = [[RT.enonces[b.id].texte, 0, ""]]; b.indice = RT.enonces[b.id].indice; b.cases = RT.enonces[b.id].cases; if (RT.enonces[b.id].aide) b.aide = RT.enonces[b.id].aide; }
+        if (b.t === "q" && RT.enonces[b.id]) { if (!b.edite) b.s = [[RT.enonces[b.id].texte, 0, ""]]; // b.edite : énoncé modifié par un prof dans l'éditeur, il garde la main
+          b.indice = RT.enonces[b.id].indice; b.cases = RT.enonces[b.id].cases; if (RT.enonces[b.id].aide) b.aide = RT.enonces[b.id].aide; }
         if (b.t === "q") {
           var m = /^([\s\S]*?)\s*Aide\s*:\s*([\s\S]+)$/.exec(texte(b.s));
           if (m) { b.s = [[m[1], 0, b.s[0][2] || ""]]; b.aide = m[2]; }
         }
         if (b.t === "p" && /^Travail à suivre : pages .*conservent leurs numéros Q et V\.$/.test(texte(b.s))) b.s = [[RT.travailASuivre, 0, ""]];
       });
-      sec.questions.forEach(function (q) { if (RT.enonces[q.id]) q.court = RT.enonces[q.id].texte.slice(0, 60); });
+      sec.questions.forEach(function (q) { var bq = sec.blocks.filter(function (x) { return x.id === q.id; })[0]; if (RT.enonces[q.id] && !(bq && bq.edite)) q.court = RT.enonces[q.id].texte.slice(0, 60); });
       sec.questions.forEach(function (q) { q.court = q.court.replace(/\s*Aide\s*:.*$/, ""); });
       sec.court = sec.titre;
       RT.titres.forEach(function (r) { sec.court = sec.court.replace(r[0], r[1]); });
